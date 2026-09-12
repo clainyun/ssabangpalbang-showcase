@@ -7,12 +7,16 @@
 
 <p align="center">
   <b>SSAFY 15기 모바일 트랙 공통 프로젝트 · 6인 팀</b><br/>
-  Team Lead · Backend · AI · Infra Integration
+  2026.07 ~ 2026.08
+</p>
+
+<p align="center">
+  <b>Team Lead · Backend · AI · Infra Integration</b>
 </p>
 
 <p align="center">
   <a href="https://drive.google.com/file/d/1cRq3PkYA1P8HrRermupYNuJA8RXNhiV0/view?usp=sharing">
-    <img src="https://img.shields.io/badge/▶%20Full-Service%20Demo-FF4B4B?style=for-the-badge&logo=googledrive&logoColor=white"/>
+    <img src="https://img.shields.io/badge/▶%20Full%20Service%20Demo-FF4B4B?style=for-the-badge&logo=googledrive&logoColor=white"/>
   </a>
 </p>
 
@@ -31,9 +35,15 @@
 
 <table align="center">
   <tr>
-    <td align="center"><img src="./assets/ui/home-main-01.jpg" width="230"/></td>
-    <td align="center"><img src="./assets/ui/home-main-02.jpg" width="230"/></td>
-    <td align="center"><img src="./assets/ui/home-main-03.jpg" width="230"/></td>
+    <td align="center">
+      <img src="./assets/ui/home-main-01.jpg" width="230"/>
+    </td>
+    <td align="center">
+      <img src="./assets/ui/home-main-02.jpg" width="230"/>
+    </td>
+    <td align="center">
+      <img src="./assets/ui/home-main-03.jpg" width="230"/>
+    </td>
   </tr>
 </table>
 
@@ -43,7 +53,7 @@
 
 | **109팀 중 10팀** | **본선 발표회 2등** | **228명 사용자 조사** | **6인 팀 · 팀장** |
 |:---:|:---:|:---:|:---:|
-| 삼성 임직원 유저테스트 선정 | SSAFY 공통 프로젝트 | SSAFY 15/16기 + 부모님/지인 | Backend · AI · Infra 통합 |
+| 삼성 임직원 유저테스트 선정 | SSAFY 공통 프로젝트 | SSAFY 교육생 · 부모님 · 지인 | Backend · AI · Infra 통합 |
 
 > ### 💡 “처리 시작이 아니라 실제 완료까지 확인하는 Backend/Infra 개발자”
 >
@@ -56,6 +66,7 @@
 | 항목 | 내용 |
 |---|---|
 | **프로젝트** | 싸방팔방 · 모바일 임장 스터디 플랫폼 |
+| **기간** | 2026.07 ~ 2026.08 |
 | **트랙** | SSAFY 15기 공통 프로젝트 · 모바일 |
 | **팀** | 6인 |
 | **역할** | Team Lead · Backend · AI · Infra Integration |
@@ -64,7 +75,7 @@
 | **전체 시연** | [🎬 영상 포트폴리오 보기](https://drive.google.com/file/d/1cRq3PkYA1P8HrRermupYNuJA8RXNhiV0/view?usp=sharing) |
 
 > ℹ️ 이 저장소는 채용 포트폴리오용 공개 Showcase입니다.  
-> 비공개 팀 GitLab의 최신 코드에서 공개 가능한 Snapshot을 구성했으며,  
+> 비공개 팀 GitLab의 최신 코드를 기준으로 공개 가능한 Snapshot을 구성했으며,  
 > 아래 내용은 **개인 직접 기여와 팀 전체 구현을 구분해 작성했습니다.**
 
 ---
@@ -90,10 +101,10 @@
 
 ### 임장의 전·중·후를 하나의 서비스 흐름으로 연결하다
 
-임장은 실거주나 투자 목적으로 관심 지역과 아파트를 직접 방문해  
+임장은 실거주나 투자 목적으로 관심 있는 지역과 아파트를 직접 방문해  
 교통, 상권, 소음, 시설 등을 확인하는 활동입니다.
 
-하지만 실제 임장 과정에서는 다음 문제가 반복됐습니다.
+하지만 실제 임장 과정에서는 다음 문제가 반복됩니다.
 
 - **임장 전** — 무엇을 확인해야 하는지 모르기 쉬움
 - **임장 중** — 사진·음성·메모·체크리스트 기록이 흩어짐
@@ -104,17 +115,16 @@
 
 ```mermaid
 flowchart LR
-    A[스터디 모집·참여]
-    --> B[AI 맞춤 체크리스트]
-    --> C[GPS 기반 임장 시작]
-    --> D[현장 기록<br/>텍스트·사진·음성]
-    --> E[STT · 실시간 채팅]
-    --> F[AI 통합 리포트]
-    --> G[근거 연결]
-    --> H[RAG 질의응답]
+    A[스터디 모집·참여] --> B[AI 맞춤 체크리스트]
+    B --> C[GPS 기반 임장 시작]
+    C --> D[현장 기록<br/>텍스트·사진·음성]
+    D --> E[STT · 실시간 채팅]
+    E --> F[AI 통합 리포트]
+    F --> G[근거 연결]
+    G --> H[RAG 질의응답]
 ```
 
-기본 도메인은 다음과 같이 단순하게 정의했습니다.
+서비스 흐름은 다음처럼 단순하게 정의했습니다.
 
 ```text
 스터디 1개
@@ -130,13 +140,13 @@ flowchart LR
 
 ### 기능을 정하기 전에 228명에게 물었습니다
 
-SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓혀  
+SSAFY 교육생뿐 아니라 부모님과 지인까지 범위를 넓혀  
 **이틀 동안 총 228명**의 응답을 받았습니다.
 
 <p align="center">
   <img src="./assets/research/survey-228-responses.gif"
        alt="싸방팔방 228명 사용자 설문"
-       width="820"/>
+       width="850"/>
 </p>
 
 발표 자료 기준으로 응답자의 **74.4%가 임장에 관심이 있었고**,  
@@ -165,7 +175,7 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
 <p align="center">
   <img src="./assets/ui/home-main.gif"
        alt="싸방팔방 메인 화면"
-       width="360"/>
+       width="380"/>
 </p>
 
 <table align="center">
@@ -186,7 +196,7 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
 ### 3-2. 온보딩 → AI 맞춤 체크리스트
 
 온보딩에서 주거 선호 조건을 수집하고,  
-임장 시 무엇을 확인해야 할지 사용자 조건에 맞는 체크리스트를 제공합니다.
+사용자 조건에 맞는 임장 체크리스트를 제공합니다.
 
 <table align="center">
   <tr>
@@ -201,10 +211,12 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
   </tr>
 </table>
 
+<br/>
+
 <table align="center">
   <tr>
     <td align="center">
-      <b>AI 체크리스트</b><br/><br/>
+      <b>AI 맞춤 체크리스트</b><br/><br/>
       <img src="./assets/ui/ai-checklist.gif" width="340"/>
     </td>
     <td align="center">
@@ -234,21 +246,24 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
   </tr>
 </table>
 
-리포트는 체크리스트와 현장 메모를 종합해  
+<br/>
+
+리포트는 체크리스트와 현장 기록을 종합해  
 **긍정 요소 · 주의 요소 · 참여자별 원본 근거**를 함께 확인할 수 있도록 구성했습니다.
 
 <p align="center">
   <img src="./assets/ui/ai-chatbot.gif"
        alt="싸방팔방 AI 챗봇"
-       width="360"/>
+       width="380"/>
 </p>
 
-리포트를 기반으로 추가 질문을 할 수 있도록 RAG 기반 챗봇을 연결했습니다.
+리포트를 기반으로 추가 질문을 할 수 있도록  
+RAG 기반 챗봇을 연결했습니다.
 
 <p align="center">
   <img src="./assets/ui/report-notification.jpg"
        alt="리포트 완료 알림"
-       width="350"/>
+       width="360"/>
 </p>
 
 <br/>
@@ -262,32 +277,34 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
   <tr>
     <td align="center">
       <b>스터디 상세</b><br/><br/>
-      <img src="./assets/ui/study-detail.jpg" width="250"/>
+      <img src="./assets/ui/study-detail.jpg" width="245"/>
     </td>
     <td align="center">
       <b>일정 캘린더</b><br/><br/>
-      <img src="./assets/ui/schedule-calendar.jpg" width="250"/>
+      <img src="./assets/ui/schedule-calendar.jpg" width="245"/>
     </td>
     <td align="center">
       <b>참여 스터디</b><br/><br/>
-      <img src="./assets/ui/joined-study-list.jpg" width="250"/>
+      <img src="./assets/ui/joined-study-list.jpg" width="245"/>
     </td>
   </tr>
 </table>
+
+<br/>
 
 <table align="center">
   <tr>
     <td align="center">
       <b>임장 기록</b><br/><br/>
-      <img src="./assets/ui/fieldvisit-history.jpg" width="250"/>
+      <img src="./assets/ui/fieldvisit-history.jpg" width="245"/>
     </td>
     <td align="center">
       <b>리뷰 작성</b><br/><br/>
-      <img src="./assets/ui/review-write.jpg" width="250"/>
+      <img src="./assets/ui/review-write.jpg" width="245"/>
     </td>
     <td align="center">
       <b>리뷰 완료</b><br/><br/>
-      <img src="./assets/ui/review-complete.jpg" width="250"/>
+      <img src="./assets/ui/review-complete.jpg" width="245"/>
     </td>
   </tr>
 </table>
@@ -368,7 +385,7 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
 | **STT Transactional Outbox** | Dual-write 위험 정의 · 도입 제안 · 구조 설계 · 기술 결정 |
 | **STT Outbox 실제 코드** | 팀원 구현 |
 | **Embedding / pgvector 차원 변경** | 모델·차원 공동 결정 |
-| **Frontend UI/Component** | 팀 전체 구현 · 개인 UI 구현으로 귀속하지 않음 |
+| **Frontend UI / Component** | 팀 전체 구현 · 개인 UI 구현으로 귀속하지 않음 |
 | **Backend Lease API** | 계약 설계 · Worker 구현 · 통합 E2E 담당, Backend 구현은 팀원 |
 
 > 팀장으로서 중요한 것은 모든 코드를 직접 작성하는 것이 아니라,  
@@ -378,26 +395,24 @@ SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓�
 
 ## 6. 시스템 아키텍처 🏗️
 
-<p align="center">
-  <img src="./Architecture.png"
-       alt="싸방팔방 시스템 아키텍처"
-       width="950"/>
-</p>
-
 ```mermaid
 flowchart TB
     Mobile[React Native / Expo<br/>Mobile Client]
     Backend[Spring Boot<br/>Backend]
+
     DB[(PostgreSQL<br/>PostGIS · pgvector)]
     Redis[(Redis)]
     Kafka[(Kafka)]
+
     AI[FastAPI<br/>AI Worker]
     LLM[LLM / STT Provider]
 
     Mobile -->|REST / STOMP| Backend
+
     Backend --> DB
     Backend --> Redis
     Backend --> Kafka
+
     Kafka --> AI
     AI --> DB
     AI --> LLM
@@ -408,6 +423,7 @@ flowchart TB
 ```text
 Mobile
   ↓ REST / STOMP
+
 Spring Boot
   ├─ PostgreSQL / PostGIS / pgvector
   ├─ Redis
@@ -419,21 +435,6 @@ Spring Boot
         ├─ AI Report
         └─ RAG Chatbot
 ```
-
-### ERD
-
-<details>
-<summary><b>ERD 상세 보기</b></summary>
-
-<br/>
-
-<p align="center"><img src="./ERD/drawsql-1-member-community.jpg" width="900"/></p>
-<p align="center"><img src="./ERD/drawsql-2-apartment-chatbot.jpg" width="900"/></p>
-<p align="center"><img src="./ERD/drawsql-3-study-chat.jpg" width="900"/></p>
-<p align="center"><img src="./ERD/drawsql-4-field-visit-checklist.jpg" width="900"/></p>
-<p align="center"><img src="./ERD/drawsql-5-file-report-stt.jpg" width="900"/></p>
-
-</details>
 
 ---
 
@@ -687,7 +688,7 @@ Jenkins Pipeline에 Test Stage가 있다고 해서
 서비스를 장기 보존하기 위해 GCP 이전을 전담했습니다.
 
 ```text
-DB·파일 보존
+DB · 파일 보존
 → 새 PostgreSQL 연결
 → Redis / Kafka
 → Spring Boot
@@ -718,7 +719,7 @@ Container가 올라온 것만으로 이전 완료라고 보지 않고
 | 정상 처리 | - | O | 다음 메시지 |
 | 안전한 malformed | O | O | DLT ACK 후 진행 |
 | 잘못된 Internal Token | X | X | Partition 차단 |
-| Schema/Contract 오류 | X | X | Fail-closed |
+| Schema / Contract 오류 | X | X | Fail-closed |
 | DLT 발행 실패 | X | X | 차단 |
 
 DLT에도 원문 대신 안전한 Metadata와 `payloadHash`만 남기도록 했습니다.
@@ -752,7 +753,7 @@ DLT에도 원문 대신 안전한 Metadata와 `payloadHash`만 남기도록 했�
 - 데이터 부족을 정상 DONE으로 처리
 - 영구 실패 상태 저장
 - FAILED 상태 중복 Event 재처리 방지
-- 잘못된 Internal Token → Commit/DLT 없이 차단
+- 잘못된 Internal Token → Commit / DLT 없이 차단
 - Worker 재시작 후 동일 Consumer Group 재처리
 - Malformed Message → 안전한 DLT
 - DLT ACK 실패 → Commit하지 않고 차단
@@ -814,18 +815,30 @@ ssabangpalbang-showcase/
 
 ### 📸 SSAFY CSR 달력 촬영
 
-프로젝트 활동 이후 SSAFY 대표로 삼성전자 CSR 달력 촬영에도 참여했습니다.
+프로젝트 활동 이후 SSAFY 대표로 삼성전자 CSR 달력 촬영에 참여했습니다.
 
 <table align="center">
   <tr>
-    <td align="center"><img src="./assets/team/csr-calendar-01.jpg" width="250"/></td>
-    <td align="center"><img src="./assets/team/csr-calendar-02.jpg" width="250"/></td>
-    <td align="center"><img src="./assets/team/csr-calendar-03.jpg" width="250"/></td>
+    <td align="center">
+      <img src="./assets/team/csr-calendar-01.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <img src="./assets/team/csr-calendar-02.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <img src="./assets/team/csr-calendar-03.jpg" width="250"/>
+    </td>
   </tr>
   <tr>
-    <td align="center"><img src="./assets/team/csr-calendar-04.jpg" width="250"/></td>
-    <td align="center"><img src="./assets/team/csr-calendar-05.jpg" width="250"/></td>
-    <td align="center"><b>싸방팔방<br/>P6IX</b></td>
+    <td align="center">
+      <img src="./assets/team/csr-calendar-04.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <img src="./assets/team/csr-calendar-05.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <b>싸방팔방<br/>P6IX</b>
+    </td>
   </tr>
 </table>
 
@@ -838,7 +851,7 @@ ssabangpalbang-showcase/
 
 서비스 하나에서도 완료 기준은 여러 단계로 나뉘었습니다.
 
-| 경계 | 제가 확인한 질문 |
+| 경계 | 확인한 질문 |
 |---|---|
 | **DB** | 저장 호출이 아니라 실제 Commit까지 끝났는가? |
 | **Kafka** | DB 저장 뒤 Message 발행 의무가 남아 있지 않은가? |
