@@ -1,359 +1,865 @@
-# 싸방팔방
+<h1 align="center">🏠 싸방팔방</h1>
 
-> 아파트를 함께 살펴보고, 현장 기록과 AI 리포트로 비교하는 임장 스터디 앱
+<h3 align="center">
+현장 기록부터 체크리스트 · 리포트까지,<br/>
+더 나은 임장 경험을 만드는 모바일 임장 스터디 플랫폼
+</h3>
 
-싸방팔방은 관심 지역과 아파트를 지도에서 탐색하고, 함께 임장할 사람을 모아 현장 경험을 체계적으로 기록하는 Android 애플리케이션입니다. 임장 중에는 개인 맞춤 체크리스트와 텍스트·사진·음성 기록을 사용하고, 임장 종료 후에는 참여자 기록을 통합한 근거 기반 AI 리포트와 아파트 챗봇을 제공합니다.
+<p align="center">
+  <b>SSAFY 15기 모바일 트랙 공통 프로젝트 · 6인 팀</b><br/>
+  Team Lead · Backend · AI · Infra Integration
+</p>
 
-- 앱 버전: `1.0.1`
-- 저장소 형태: Frontend·Backend·AI·Infra로 구성된 멀티파트 저장소
-- 기준일: 2026-08-10
+<p align="center">
+  <a href="https://drive.google.com/file/d/1cRq3PkYA1P8HrRermupYNuJA8RXNhiV0/view?usp=sharing">
+    <img src="https://img.shields.io/badge/▶%20Full-Service%20Demo-FF4B4B?style=for-the-badge&logo=googledrive&logoColor=white"/>
+  </a>
+</p>
 
-## 목차
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-Spring%20Boot-6DB33F?logo=springboot&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Kafka-Event%20Driven-231F20?logo=apachekafka&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-PostGIS%20·%20pgvector-4169E1?logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React%20Native-Expo-61DAFB?logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/FastAPI-AI%20Worker-009688?logo=fastapi&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins&logoColor=white"/>
+  <img src="https://img.shields.io/badge/GCP-Service%20Migration-4285F4?logo=googlecloud&logoColor=white"/>
+</p>
 
-- [주요 기능](#주요-기능)
-- [시스템 구성](#시스템-구성)
-- [기술 스택](#기술-스택)
-- [저장소 구조](#저장소-구조)
-- [빠른 시작](#빠른-시작)
-- [환경변수](#환경변수)
-- [테스트와 품질 확인](#테스트와-품질-확인)
-- [배포와 운영](#배포와-운영)
-- [개발 규칙](#개발-규칙)
-- [문서 안내](#문서-안내)
+<br/>
 
-## 주요 기능
+<table align="center">
+  <tr>
+    <td align="center"><img src="./assets/ui/home-main-01.jpg" width="230"/></td>
+    <td align="center"><img src="./assets/ui/home-main-02.jpg" width="230"/></td>
+    <td align="center"><img src="./assets/ui/home-main-03.jpg" width="230"/></td>
+  </tr>
+</table>
 
-### 아파트 탐색
+<br/>
 
-- Mapbox 기반 지도 가시 영역 조회, 키워드·현재 위치 주변 검색
-- 서울 구·동 단위 지역 탐색
-- 아파트 상세 정보, 최근 실거래가, 모집 중인 스터디와 완료 리포트 조회
-- 관심 아파트와 관심 리포트 저장
-- 홈 화면 일정·추천·기상 특보 통합 조회
+## 📌 Project Highlights
 
-### 회원과 소셜 기능
+| **109팀 중 10팀** | **본선 발표회 2등** | **228명 사용자 조사** | **6인 팀 · 팀장** |
+|:---:|:---:|:---:|:---:|
+| 삼성 임직원 유저테스트 선정 | SSAFY 공통 프로젝트 | SSAFY 15/16기 + 부모님/지인 | Backend · AI · Infra 통합 |
 
-- 이메일 회원가입·로그인·비밀번호 재설정
-- 카카오·네이버 OAuth 로그인과 소셜 회원가입
-- JWT Access/Refresh Token 인증과 자동 재발급
-- 온보딩, 프로필 수정, 팔로우, 쪽지
-- 알림 수신 설정, FCM 기기 토큰 관리, 앱 링크 기반 화면 이동
+> ### 💡 “처리 시작이 아니라 실제 완료까지 확인하는 Backend/Infra 개발자”
+>
+> API 호출이나 저장 성공만으로 기능이 끝났다고 보지 않았습니다.  
+> **DB Commit → 메시지 발행 → Consumer 처리 → Client 반영 → 외부 Endpoint 확인**처럼  
+> 시스템 경계마다 무엇이 아직 완료되지 않았는지 구분하고, 실패 조건과 재처리 기준까지 설계했습니다.
 
-### 임장 스터디
+### 👩‍💻 프로젝트 한눈에 보기
 
-- 스터디 생성·신청·승인·거절과 모집 조기 마감·재개
-- 목표, 소개, 일정, 공지, 멤버와 신청자 관리
-- STOMP WebSocket 기반 실시간 채팅과 읽지 않은 메시지 관리
-- 채팅·스터디 일정·임장 상태에 연동된 푸시 알림
-- 임장 종료 후 스터디원 대상 익명 태그·좋아요 리뷰
+| 항목 | 내용 |
+|---|---|
+| **프로젝트** | 싸방팔방 · 모바일 임장 스터디 플랫폼 |
+| **트랙** | SSAFY 15기 공통 프로젝트 · 모바일 |
+| **팀** | 6인 |
+| **역할** | Team Lead · Backend · AI · Infra Integration |
+| **성과** | 삼성 임직원 유저테스트 10팀 선정 · 공통 프로젝트 본선 발표회 2등 |
+| **핵심 경험** | 실시간 정합성 · 비동기 처리 · 멱등성 · 실패복구 · AI 신뢰성 · CI/CD · 운영 이전 |
+| **전체 시연** | [🎬 영상 포트폴리오 보기](https://drive.google.com/file/d/1cRq3PkYA1P8HrRermupYNuJA8RXNhiV0/view?usp=sharing) |
 
-### 현장 임장
+> ℹ️ 이 저장소는 채용 포트폴리오용 공개 Showcase입니다.  
+> 비공개 팀 GitLab의 최신 코드에서 공개 가능한 Snapshot을 구성했으며,  
+> 아래 내용은 **개인 직접 기여와 팀 전체 구현을 구분해 작성했습니다.**
 
-- GPS 거리 검증을 거친 임장 시작과 참여자 상태 확인
-- 아파트 단지 주변 추천 경로 생성, 지도 경로 안내와 실제 이동 경로 기록
-- 사용자 특성에 맞춘 AI 체크리스트 생성·선택과 답변 일괄 저장
-- 텍스트·사진·음성 현장 기록 등록·수정·삭제
-- Kafka 비동기 작업과 Faster Whisper를 이용한 음성 STT, 실패 작업 재처리
-- 개인 임장 종료·취소, 미종료 참여자 종료 요청, 과반수 투표 기반 전체 종료
+---
 
-### AI 리포트와 챗봇
+## 📜 목차
 
-- 임장 종료 이벤트를 Kafka로 전달해 AI Report Worker가 비동기로 처리
-- 참여자별 체크리스트·메모·STT 기록을 정규화한 통합 리포트 생성
-- 공통 의견, 상반된 의견, 추가 확인 항목과 원문 근거 연결
-- 처리 lease, 멱등성, 진행 단계, 실패 메타데이터, 재생성, DLT 정책 지원
-- PostgreSQL `pgvector`와 다국어 임베딩 기반 RAG 검색
-- 내부 리포트·공개 데이터·선택적 웹 검색을 결합한 아파트 챗봇
-- GMS 호환 Gemini·OpenAI·Anthropic 모델 비교 평가 도구
+1. [프로젝트 소개](#1-프로젝트-소개-)
+2. [사용자 문제를 먼저 확인하다](#2-사용자-문제를-먼저-확인하다-)
+3. [서비스 시연](#3-서비스-시연-)
+4. [실사용자 검증과 영상 포트폴리오](#4-실사용자-검증과-영상-포트폴리오-)
+5. [담당 역할 및 협업](#5-담당-역할-및-협업-)
+6. [시스템 아키텍처](#6-시스템-아키텍처-)
+7. [핵심 설계](#7-핵심-설계-)
+8. [트러블 슈팅과 운영 안정성](#8-트러블-슈팅과-운영-안정성-)
+9. [테스트와 검증](#9-테스트와-검증-)
+10. [기술 구성](#10-기술-구성-)
+11. [성과와 프로젝트 활동](#11-성과와-프로젝트-활동-)
+12. [What I Learned](#12-what-i-learned-)
 
-### 커뮤니티
+---
 
-- 게시글 목록·검색·상세·작성·수정·삭제
-- 댓글 작성·수정·삭제와 게시글 좋아요
-- HOT 게시글, 내가 작성한 글·댓글, 사용자 공개 프로필 조회
+## 1. 프로젝트 소개 🏘️
 
-## 시스템 구성
+### 임장의 전·중·후를 하나의 서비스 흐름으로 연결하다
+
+임장은 실거주나 투자 목적으로 관심 지역과 아파트를 직접 방문해  
+교통, 상권, 소음, 시설 등을 확인하는 활동입니다.
+
+하지만 실제 임장 과정에서는 다음 문제가 반복됐습니다.
+
+- **임장 전** — 무엇을 확인해야 하는지 모르기 쉬움
+- **임장 중** — 사진·음성·메모·체크리스트 기록이 흩어짐
+- **임장 후** — 여러 사람의 기록을 다시 모아 비교하기 어려움
+- **후속 탐색** — 리포트를 보고 생긴 궁금증을 다시 검색해야 함
+
+싸방팔방은 이 흐름을 하나로 연결했습니다.
 
 ```mermaid
 flowchart LR
-    Mobile["Expo / React Native Android 앱"]
-    Nginx["Nginx · HTTPS"]
-    Backend["Spring Boot API"]
-    AI["FastAPI AI 서비스"]
-    DB[("PostgreSQL · PostGIS · pgvector")]
-    Redis[("Redis")]
-    Kafka[("Kafka")]
-    Media["Media Gateway · Object Storage"]
-    FCM["Firebase Cloud Messaging"]
-    External["GMS LLM · 공공데이터 · 지도 API"]
-
-    Mobile -->|"REST · WebSocket/STOMP"| Nginx
-    Nginx --> Backend
-    Backend <--> DB
-    Backend <--> Redis
-    Backend <--> Kafka
-    Kafka <--> AI
-    Backend -->|"체크리스트·챗봇 내부 API"| AI
-    AI -->|"리포트 진행·완료·실패"| Backend
-    AI <--> DB
-    Backend --> Media
-    Backend --> FCM
-    Backend --> External
-    AI --> External
+    A[스터디 모집·참여]
+    --> B[AI 맞춤 체크리스트]
+    --> C[GPS 기반 임장 시작]
+    --> D[현장 기록<br/>텍스트·사진·음성]
+    --> E[STT · 실시간 채팅]
+    --> F[AI 통합 리포트]
+    --> G[근거 연결]
+    --> H[RAG 질의응답]
 ```
 
-주요 처리 흐름은 다음과 같습니다.
+기본 도메인은 다음과 같이 단순하게 정의했습니다.
 
-1. 앱은 Spring Boot의 REST API와 STOMP WebSocket을 통해 인증, 스터디, 임장, 채팅 기능을 사용합니다.
-2. Backend는 PostgreSQL을 영속 저장소로, Redis를 STT lease·중복 처리 방지 등 단기 상태 저장소로 사용합니다.
-3. 음성 기록과 리포트 생성은 Kafka 요청·결과 토픽으로 Backend와 AI 서비스가 비동기 연동됩니다.
-4. AI 서비스는 STT, 체크리스트, 리포트 생성·근거 연결, RAG 검색을 수행하고 내부 API로 결과를 저장합니다.
-5. 운영 환경에서는 Nginx가 HTTPS 진입점과 리포트 앱 링크 랜딩을 담당하고 Jenkins가 Docker Compose 배포·검증을 수행합니다.
+```text
+스터디 1개
+→ 아파트 1개
+→ 일정 1개
+→ 임장 1회
+→ 팀 리포트 1개
+```
 
-## 기술 스택
+---
+
+## 2. 사용자 문제를 먼저 확인하다 🔎
+
+### 기능을 정하기 전에 228명에게 물었습니다
+
+SSAFY 15·16기 교육생뿐 아니라 부모님과 지인까지 범위를 넓혀  
+**이틀 동안 총 228명**의 응답을 받았습니다.
+
+<p align="center">
+  <img src="./assets/research/survey-228-responses.gif"
+       alt="싸방팔방 228명 사용자 설문"
+       width="820"/>
+</p>
+
+발표 자료 기준으로 응답자의 **74.4%가 임장에 관심이 있었고**,  
+그중 **50.2%는 관심은 있지만 시작하기 어렵다**고 답했습니다.
+
+연령대별로도 불편의 지점이 달랐습니다.
+
+| 사용자 | 확인한 문제 |
+|---|---|
+| **20·30대** | 임장을 가도 무엇을 봐야 할지 잘 모르겠음 |
+| **40·50대** | 현장에서 적은 메모가 흩어져 다시 찾기 어려움 |
+| **공통** | 임장 전 준비부터 임장 후 정리까지 한 흐름으로 연결된 도구가 부족함 |
+
+그래서 기능부터 정하지 않고,  
+**사용자가 실제로 멈추는 지점을 임장 전·중·후 흐름으로 다시 정의했습니다.**
+
+---
+
+## 3. 서비스 시연 🎬
+
+### 3-1. 홈 · 지도 · 아파트 탐색
+
+임장 일정과 관심 아파트를 한 화면에서 확인하고,  
+지도에서 아파트를 탐색한 뒤 상세 정보와 스터디로 이어집니다.
+
+<p align="center">
+  <img src="./assets/ui/home-main.gif"
+       alt="싸방팔방 메인 화면"
+       width="360"/>
+</p>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>아파트 지도</b><br/><br/>
+      <img src="./assets/ui/apartment-map.gif" width="350"/>
+    </td>
+    <td align="center">
+      <b>아파트 상세</b><br/><br/>
+      <img src="./assets/ui/apartment-detail.jpg" width="350"/>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+### 3-2. 온보딩 → AI 맞춤 체크리스트
+
+온보딩에서 주거 선호 조건을 수집하고,  
+임장 시 무엇을 확인해야 할지 사용자 조건에 맞는 체크리스트를 제공합니다.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>온보딩</b><br/><br/>
+      <img src="./assets/ui/onboarding.gif" width="340"/>
+    </td>
+    <td align="center">
+      <b>체크리스트 생성</b><br/><br/>
+      <img src="./assets/ui/checklist-loading.gif" width="340"/>
+    </td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>AI 체크리스트</b><br/><br/>
+      <img src="./assets/ui/ai-checklist.gif" width="340"/>
+    </td>
+    <td align="center">
+      <b>체크리스트 · 현장 메모</b><br/><br/>
+      <img src="./assets/ui/checklist-memo.gif" width="340"/>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+### 3-3. 현장 기록 → AI 리포트 → AI 챗봇
+
+현장에서 체크리스트·메모·음성·사진을 남기고,  
+임장이 끝나면 여러 참여자의 기록을 하나의 리포트로 종합합니다.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>리포트 생성</b><br/><br/>
+      <img src="./assets/ui/fieldvisit-report.gif" width="340"/>
+    </td>
+    <td align="center">
+      <b>AI 리포트</b><br/><br/>
+      <img src="./assets/ui/ai-report.gif" width="340"/>
+    </td>
+  </tr>
+</table>
+
+리포트는 체크리스트와 현장 메모를 종합해  
+**긍정 요소 · 주의 요소 · 참여자별 원본 근거**를 함께 확인할 수 있도록 구성했습니다.
+
+<p align="center">
+  <img src="./assets/ui/ai-chatbot.gif"
+       alt="싸방팔방 AI 챗봇"
+       width="360"/>
+</p>
+
+리포트를 기반으로 추가 질문을 할 수 있도록 RAG 기반 챗봇을 연결했습니다.
+
+<p align="center">
+  <img src="./assets/ui/report-notification.jpg"
+       alt="리포트 완료 알림"
+       width="350"/>
+</p>
+
+<br/>
+
+### 3-4. 스터디 · 일정 · 기록 · 리뷰
+
+스터디 모집부터 일정 확인, 참여 기록, 리뷰까지  
+임장 전후의 협업 흐름도 앱 안에서 이어집니다.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>스터디 상세</b><br/><br/>
+      <img src="./assets/ui/study-detail.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <b>일정 캘린더</b><br/><br/>
+      <img src="./assets/ui/schedule-calendar.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <b>참여 스터디</b><br/><br/>
+      <img src="./assets/ui/joined-study-list.jpg" width="250"/>
+    </td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>임장 기록</b><br/><br/>
+      <img src="./assets/ui/fieldvisit-history.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <b>리뷰 작성</b><br/><br/>
+      <img src="./assets/ui/review-write.jpg" width="250"/>
+    </td>
+    <td align="center">
+      <b>리뷰 완료</b><br/><br/>
+      <img src="./assets/ui/review-complete.jpg" width="250"/>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 4. 실사용자 검증과 영상 포트폴리오 📱
+
+### 삼성 임직원 유저테스트 10팀 선정
+
+전체 109팀 중 **삼성 임직원 사용자 테스트 대상 10팀**에 선정되어  
+실제 APK를 배포하고 외부 사용자가 직접 서비스를 사용하도록 했습니다.
+
+<p align="center">
+  <img src="./assets/research/samsung-user-test-guide.png"
+       alt="삼성 임직원 유저테스트 APK 설치 가이드"
+       width="850"/>
+</p>
+
+<p align="center">
+  <sub>삼성 임직원 유저테스트 가이드에 실제 APK 설치 경로가 안내된 화면</sub>
+</p>
+
+내부에서 기능이 완성됐다고 판단하는 데서 끝내지 않고,  
+**실제 사용자가 기능을 끝까지 수행할 수 있는지**를 다시 확인했습니다.
+
+### 🎥 전체 서비스 영상 포트폴리오
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1cRq3PkYA1P8HrRermupYNuJA8RXNhiV0/view?usp=sharing">
+    <img src="https://img.shields.io/badge/▶%20싸방팔방-전체%20서비스%20시연%20영상-FF4B4B?style=for-the-badge&logo=googledrive&logoColor=white"/>
+  </a>
+</p>
+
+<p align="center">
+  <sub>Google Drive Viewer에서 전체 서비스 흐름을 확인할 수 있습니다.</sub>
+</p>
+
+<p align="center">
+  <img src="./assets/ui/service-qr.png"
+       alt="싸방팔방 서비스 QR"
+       width="180"/>
+</p>
+
+---
+
+## 5. 담당 역할 및 협업 👩‍💻
+
+### Team Lead · Backend · AI · Infra Integration
+
+6인 팀의 팀장으로 참여해  
+개별 기능 하나보다 **Backend · AI · Infra · Mobile 사이의 연결 기준**을 먼저 맞추는 데 집중했습니다.
+
+### 직접 담당한 주요 영역
+
+- 프로젝트 팀장 및 기술 통합
+- 요구사항 · ERD · API · 상태 기준 정리
+- 초기 Docker Compose 운영 환경 구축
+- Jenkins Container · Pipeline · Webhook · Credential · Secret · Nginx/HTTPS 구성
+- CI/CD 실패 주입 검증
+- Kafka Report Event 계약 · Consumer 정책 · 격리 E2E
+- Backup · 격리 Restore 도구
+- 운영 DB Flyway 장애 복구
+- WebSocket/STOMP 정합성 · 인가 · 읽음 상태 · 이미지 검증
+- 현장 기록 `clientRequestId` 기반 멱등성
+- GPS 임장 시작 정책 및 150m → 1km 조정
+- AI Checklist Fallback · Catalog 선택 구조
+- AI Report 결정적 처리 · 근거 검증 · Worker · Lease 계약
+- GCP 서버 · 데이터 · 도메인 이전
+- 팀 개발 · 운영 · 릴리즈 기준 정리
+
+### 역할 경계를 명확히 했습니다
+
+팀 프로젝트인 만큼 모든 코드를 개인 성과로 설명하지 않습니다.
+
+| 영역 | 개인 역할 |
+|---|---|
+| **STT Transactional Outbox** | Dual-write 위험 정의 · 도입 제안 · 구조 설계 · 기술 결정 |
+| **STT Outbox 실제 코드** | 팀원 구현 |
+| **Embedding / pgvector 차원 변경** | 모델·차원 공동 결정 |
+| **Frontend UI/Component** | 팀 전체 구현 · 개인 UI 구현으로 귀속하지 않음 |
+| **Backend Lease API** | 계약 설계 · Worker 구현 · 통합 E2E 담당, Backend 구현은 팀원 |
+
+> 팀장으로서 중요한 것은 모든 코드를 직접 작성하는 것이 아니라,  
+> **구성요소 사이의 실패 조건과 완료 기준을 공통 언어로 만드는 것**이라고 생각했습니다.
+
+---
+
+## 6. 시스템 아키텍처 🏗️
+
+<p align="center">
+  <img src="./Architecture.png"
+       alt="싸방팔방 시스템 아키텍처"
+       width="950"/>
+</p>
+
+```mermaid
+flowchart TB
+    Mobile[React Native / Expo<br/>Mobile Client]
+    Backend[Spring Boot<br/>Backend]
+    DB[(PostgreSQL<br/>PostGIS · pgvector)]
+    Redis[(Redis)]
+    Kafka[(Kafka)]
+    AI[FastAPI<br/>AI Worker]
+    LLM[LLM / STT Provider]
+
+    Mobile -->|REST / STOMP| Backend
+    Backend --> DB
+    Backend --> Redis
+    Backend --> Kafka
+    Kafka --> AI
+    AI --> DB
+    AI --> LLM
+```
+
+### 주요 데이터 흐름
+
+```text
+Mobile
+  ↓ REST / STOMP
+Spring Boot
+  ├─ PostgreSQL / PostGIS / pgvector
+  ├─ Redis
+  └─ Kafka
+        ↓
+     FastAPI Worker
+        ├─ STT
+        ├─ AI Checklist
+        ├─ AI Report
+        └─ RAG Chatbot
+```
+
+### ERD
+
+<details>
+<summary><b>ERD 상세 보기</b></summary>
+
+<br/>
+
+<p align="center"><img src="./ERD/drawsql-1-member-community.jpg" width="900"/></p>
+<p align="center"><img src="./ERD/drawsql-2-apartment-chatbot.jpg" width="900"/></p>
+<p align="center"><img src="./ERD/drawsql-3-study-chat.jpg" width="900"/></p>
+<p align="center"><img src="./ERD/drawsql-4-field-visit-checklist.jpg" width="900"/></p>
+<p align="center"><img src="./ERD/drawsql-5-file-report-stt.jpg" width="900"/></p>
+
+</details>
+
+---
+
+## 7. 핵심 설계 🧩
+
+### 7-1. DB 저장과 실시간 전송을 같은 완료로 보지 않았습니다
+
+채팅 메시지는 DB에 저장되는 순간과  
+다른 사용자의 화면에 실시간으로 보이는 순간이 다릅니다.
+
+```text
+Entity Save
+≠
+DB Commit
+≠
+STOMP Broadcast
+≠
+Client 화면 반영
+```
+
+메시지 저장과 이벤트 생성을 Transaction 안에서 처리하고,  
+**실제 STOMP Broadcast는 `AFTER_COMMIT` 이후** 실행하도록 경계를 분리했습니다.
+
+이를 통해 DB가 Rollback됐는데 Client에는 이미 메시지가 보이는 상태를 방지했습니다.
+
+또한 최초 진입 시에는 다음 공백도 따로 다뤘습니다.
+
+```text
+REST History 조회
+        ↓
+STOMP Subscribe
+```
+
+두 단계 사이에 도착한 메시지가 처음 화면에서 빠질 수 있어  
+**Subscription 이후 Catch-up 조회 + `messageId` 기준 Merge**로 보완했습니다.
+
+> `AFTER_COMMIT`은 DB Commit 이후에 보내도록 할 뿐,  
+> 실제 네트워크 전달 성공까지 보장한다고 설명하지 않습니다.
+
+---
+
+### 7-2. 불안정한 네트워크의 재전송을 멱등하게 수용
+
+현장에서는 같은 요청이 재전송될 수 있습니다.
+
+그래서 현장 기록 생성에
+
+```text
+clientRequestId
++
+SHA-256 Request Fingerprint
++
+DB UNIQUE
+```
+
+를 사용했습니다.
+
+| 상황 | 처리 |
+|---|---|
+| 같은 Key + 같은 내용 | 기존 결과 반환 |
+| 같은 Key + 다른 내용 | Key 재사용 오류 |
+| 동시 중복 요청 | UNIQUE 충돌 후 별도 Transaction에서 기존 결과 재조회 |
+
+단순히 “같은 ID면 성공”으로 처리하지 않고  
+**동일 요청의 재시도와 다른 요청의 잘못된 Key 재사용을 구분**했습니다.
+
+---
+
+### 7-3. 현장 통제 목적은 유지하고 GPS 정책은 실제 임장에 맞게 조정
+
+초기 임장 시작 가능 거리는 아파트 중심 기준 **150m**였습니다.
+
+하지만 실제 임장은 단지 안만 보는 것이 아니라  
+역·상권·학교·접근 동선까지 함께 확인합니다.
+
+거리 검증 자체를 제거하지 않고,
+
+```text
+원격 임장 방지
++
+실제 생활권 탐색 가능
+```
+
+을 함께 만족시키도록 **1km**로 정책 경계를 조정했습니다.
+
+> 1km를 정량 실험의 최적값이라고 주장하지 않습니다.  
+> 핵심은 숫자 자체보다 **통제 목적과 사용자 행동을 함께 본 정책 판단**입니다.
+
+---
+
+### 7-4. LLM의 역할을 “생성”에서 “검증 가능한 선택”으로 제한
+
+초기에는 LLM이 체크리스트 항목을 자유롭게 생성했습니다.
+
+서비스 안정성을 높이기 위해 출력 공간을 제한했습니다.
+
+```mermaid
+flowchart LR
+    A[검수된 300개 Catalog]
+    --> B[Backend 조건 필터링·스코어링]
+    --> C[후보 50개 Shortlist]
+    --> D[LLM itemCode 선택]
+    --> E[Server Validation]
+    --> F[최종 Checklist]
+```
+
+검증 항목:
+
+- 반환 Code가 Shortlist의 부분집합인지
+- 중복 Code가 없는지
+- 요청한 개수 범위인지
+- 알 수 없는 Code가 포함되지 않았는지
+
+실패 시에는 다음 순서로 Fallback합니다.
+
+```text
+AI 선택 실패
+→ 스코어 상위 결정적 선택
+→ 기본 체크리스트
+```
+
+> LLM의 환각을 “없앴다”고 표현하지 않고,  
+> **카탈로그 밖 출력을 최종 결과에서 거부할 수 있게 만들었다**고 설명합니다.
+
+---
+
+### 7-5. AI 리포트 Worker에 처리권과 실패 상태를 명시
+
+Kafka의 at-least-once 특성상 동일 이벤트가 다시 들어오거나,  
+처리 중 Worker가 죽을 수 있습니다.
+
+AI Report Worker는 처리 단계를 명시적으로 관리했습니다.
+
+```text
+Acquire
+→ RECORD_COLLECTION
+→ STT_VALIDATION
+→ NORMALIZATION
+→ REPORT_GENERATION
+→ EVIDENCE_MAPPING
+→ RESULT_SAVING
+→ COMPLETED
+```
+
+Backend와 AI가 다른 언어와 프로세스에서 동작하므로  
+먼저 **Lease 계약**을 정의했습니다.
+
+```text
+ACQUIRED
+→ processingToken + processingAttempt
+
+Lease 유효
+→ ALREADY_PROCESSING
+
+Lease 만료
+→ 새 Token으로 재선점
+
+이전 Token의 늦은 쓰기
+→ STALE_PROCESSING_TOKEN 거부
+```
+
+개인 역할은 **계약 설계 · Worker 측 구현 · 통합 E2E**이며,  
+Backend Lease API 자체는 팀원이 계약에 맞춰 구현했습니다.
+
+---
+
+### 7-6. STT의 DB 저장과 Kafka 발행 사이 실패 구간을 먼저 정의
+
+STT 요청에서는 다음 두 성공이 서로 다릅니다.
+
+```text
+DB에 STT Job 저장 성공
+≠
+Kafka Request 발행 성공
+```
+
+따라서 DB와 Broker 사이의 Dual-write 위험을 정의하고  
+**Transactional Outbox 도입을 제안하고 구조를 설계했습니다.**
+
+```text
+Business Transaction
+├─ STT Job
+└─ Outbox Record
+       ↓
+Dispatcher
+       ↓
+Kafka
+```
+
+> Outbox의 Entity · Migration · Dispatcher · Retry 실제 구현은 팀원이 담당했습니다.  
+> 또한 Outbox가 Exactly-once를 보장한다고 설명하지 않습니다.
+
+---
+
+## 8. 트러블 슈팅과 운영 안정성 🛠️
+
+### ⭐ 01. 운영 DB Flyway 이력을 기준으로 배포 복구
+
+6명이 병렬 개발하면서 Migration Version이 겹쳤고,  
+Repository의 V23~V25와 운영 DB의 실제 적용 이력이 어긋났습니다.
+
+Jenkins 실패를 Pipeline 문제로만 보지 않고 다음 순서로 원인을 좁혔습니다.
+
+```text
+Jenkins 배포 실패
+→ Spring Boot 기동 실패
+→ Flyway Validation
+→ flyway_schema_history
+→ Repository Migration Chain
+```
+
+운영 History를 삭제하거나 조작하지 않고  
+**이미 적용된 운영 이력을 기준선으로 V23 → V24 → V25를 재구성**했습니다.
+
+결과적으로 Flyway Validation 차단이 해소되고  
+Spring Boot 기동과 Jenkins 배포 경로가 다시 정상화됐습니다.
+
+> 이후부터 **“적용된 Migration은 수정하지 않고 새 Version으로 누적한다”**는 기준을 문서화했습니다.
+
+---
+
+### ⭐ 02. 안전장치를 “존재”가 아니라 실패 주입으로 검증
+
+Jenkins Pipeline에 Test Stage가 있다고 해서  
+실패 시 실제 배포가 중단된다고 가정하지 않았습니다.
+
+운영 Job과 분리된 검증 Branch · Job을 만들고  
+의도적으로 실패하는 테스트를 주입했습니다.
+
+실제 확인 결과:
+
+| 검증 항목 | 결과 |
+|---|---|
+| Checkout | 성공 |
+| Configuration Validation | 성공 |
+| Gradle Test | **36 completed · 1 failed · 4 skipped** |
+| Docker Build | exit code 1 |
+| Deploy | **Skipped** |
+| Verify Deployment | **Skipped** |
+| Jenkins | `FAILURE` |
+| 기존 운영 Container | Healthy 유지 |
+| 외부 Health Check | `UP` 유지 |
+
+즉, **자동 Rollback을 구현한 것이 아니라 실패한 변경이 Deploy 단계로 넘어가지 않는 것을 직접 검증**했습니다.
+
+---
+
+### ⭐ 03. SSAFY 서버 회수 후 서비스 전체를 GCP로 이전
+
+기존 서버를 더 이상 사용할 수 없게 되면서  
+서비스를 장기 보존하기 위해 GCP 이전을 전담했습니다.
+
+```text
+DB·파일 보존
+→ 새 PostgreSQL 연결
+→ Redis / Kafka
+→ Spring Boot
+→ FastAPI
+→ Nginx / Domain
+→ TLS
+→ HTTPS / WSS
+→ 외부 Endpoint 확인
+```
+
+Container가 올라온 것만으로 이전 완료라고 보지 않고  
+**데이터 · Kafka · AI · HTTPS/WSS · 외부 접근까지 단계별로 확인**했습니다.
+
+이 과정에서 Kafka와 AI의 문제를 각각 분리해 복구하고  
+새 Domain 기준의 서비스 접근 경로를 다시 연결했습니다.
+
+---
+
+### 04. Report Consumer는 “모든 실패를 DLT로 보내지 않는다”
+
+잘못된 인증이나 계약 오류까지 DLT로 보내고 Offset을 Commit하면  
+복구되지 않은 메시지가 사라진 것처럼 보일 수 있습니다.
+
+그래서 처리 결과별 정책을 구분했습니다.
+
+| 실패 유형 | DLT | Offset Commit | 동작 |
+|---|:---:|:---:|---|
+| 정상 처리 | - | O | 다음 메시지 |
+| 안전한 malformed | O | O | DLT ACK 후 진행 |
+| 잘못된 Internal Token | X | X | Partition 차단 |
+| Schema/Contract 오류 | X | X | Fail-closed |
+| DLT 발행 실패 | X | X | 차단 |
+
+DLT에도 원문 대신 안전한 Metadata와 `payloadHash`만 남기도록 했습니다.
+
+---
+
+## 9. 테스트와 검증 🧪
+
+### “동작한다”보다 실패했을 때 어떻게 끝나는지를 확인했습니다
+
+리포트 파이프라인은 운영 자원에 접근하지 않는 격리 환경에서  
+정상·중복·재시작·영구 실패·인증 실패·Malformed Message 등을 검증했습니다.
+
+### 기록된 최종 실행 결과
+
+| 검증 | 결과 |
+|---|---:|
+| Backend `postgresTest` | **8 passed** |
+| AI 경량 pytest | **504 passed / 6 skipped** |
+| Kafka-only E2E | **3 passed** |
+| Backend + PostgreSQL + Kafka E2E | **7 passed** |
+| E2E 시나리오 | **8종** |
+| Compose Config | **4종 exit 0** |
+
+8개 시나리오 중 2개가 하나의 통합 테스트로 묶여  
+실행 단위로는 7개의 E2E Test가 수행됐습니다.
+
+주요 검증 범위:
+
+- 정상 리포트 완료
+- 데이터 부족을 정상 DONE으로 처리
+- 영구 실패 상태 저장
+- FAILED 상태 중복 Event 재처리 방지
+- 잘못된 Internal Token → Commit/DLT 없이 차단
+- Worker 재시작 후 동일 Consumer Group 재처리
+- Malformed Message → 안전한 DLT
+- DLT ACK 실패 → Commit하지 않고 차단
+
+> 테스트는 “통과 개수”보다  
+> **어떤 실패 조건을 실제로 실행해봤는지**를 중요하게 봤습니다.
+
+---
+
+## 10. 기술 구성 🛠️
 
 | 영역 | 기술 |
 |---|---|
-| Mobile | Expo SDK 57, React Native 0.86.2, React 19.2.3, TypeScript 6.0.3, Expo Router |
-| Client State | TanStack Query 5, Zustand 5, React Hook Form |
-| Map & Device | Mapbox, Turf, Expo Location·Sensors·Notifications·Secure Store |
-| Realtime | STOMP WebSocket |
-| Backend | Java 17, Spring Boot 3.5.16, Spring Security, Spring Data JPA, Querydsl, Spring Kafka |
-| Database | PostgreSQL 17, PostGIS 3, pgvector 0.8.5, Flyway |
-| Cache & Messaging | Redis 7.4.9, Apache Kafka 4.3.1 KRaft |
-| AI | Python 3.12, FastAPI, Pydantic, SQLAlchemy, aiokafka, sentence-transformers, Faster Whisper |
-| API & Auth | REST, OpenAPI/Swagger, JWT, Kakao·Naver OAuth, FCM |
-| Infra | Docker Compose, Nginx, Jenkins, AWS EC2 |
-| Test | JUnit 5, Spring Boot Test, Testcontainers, pytest, Node test runner |
+| **Backend** | Java 17 · Spring Boot 3 · Spring Security · JWT · JPA · QueryDSL · WebSocket/STOMP · FCM |
+| **Database** | PostgreSQL · PostGIS · pgvector · Flyway |
+| **Messaging** | Kafka |
+| **Cache** | Redis |
+| **AI** | Python · FastAPI · LLM Provider · OpenAI Whisper · RAG |
+| **Embedding** | multilingual-e5-small-ko-v2 · 384 dimensions · CPU |
+| **Mobile** | React Native · Expo · TypeScript · Mapbox |
+| **Infra** | Docker · Docker Compose · Nginx · HTTPS/Certbot · AWS EC2 → GCP |
+| **CI/CD** | Jenkins · GitLab Webhook |
+| **Collaboration** | Jira · Confluence · GitLab Merge Request |
 
-## 저장소 구조
+> 기술 구성은 **프로젝트 전체 기준**입니다.
+
+### Repository 구조
 
 ```text
-S15P11A701/
-├─ frontend/               # Expo Router 기반 Android 앱
-│  ├─ app/                 # 파일 기반 화면·라우팅
-│  ├─ src/features/        # 도메인별 UI, API, 훅과 상태 로직
-│  ├─ src/store/           # Zustand 전역 상태
-│  ├─ assets/              # 이미지, 캐릭터, 날씨 리소스
-│  └─ app.config.ts        # Expo·Android·딥링크·네이티브 설정
-├─ backend/                # Spring Boot API 서버
-│  ├─ src/main/java/       # 도메인, 서비스, 컨트롤러, 연동 어댑터
-│  ├─ src/main/resources/  # Profile 설정과 Flyway 마이그레이션
-│  └─ src/test/            # 단위·통합·PostgreSQL·Kafka 테스트
-├─ ai/                     # FastAPI AI API와 Kafka Worker
-│  ├─ app/api/             # 체크리스트·챗봇·RAG 내부 API
-│  ├─ app/messaging/       # STT·리포트 Kafka 런타임
-│  ├─ app/rag/             # 임베딩·색인·검색
-│  ├─ app/evaluation/      # GMS 다중 모델 평가
-│  └─ tests/               # 단위·계약·격리 E2E 테스트
-├─ infra/                  # Local/Prod Compose, Nginx, 운영 스크립트
-├─ contracts/              # Backend↔AI JSON 계약 fixture
-├─ docs/                   # API, ERD, 개발, 배포, 설계·검증 문서
-├─ onestore-release/       # 원스토어 등록 문구·체크리스트·증빙
-├─ Jenkinsfile             # 운영 배포 파이프라인
-└─ Jenkinsfile.verify      # develop/브랜치 검증 파이프라인
+ssabangpalbang-showcase/
+├─ frontend/      # React Native / Expo
+├─ backend/       # Spring Boot
+├─ ai/            # FastAPI / Worker / RAG
+├─ infra/         # Docker Compose / Nginx / E2E
+├─ contracts/     # Backend ↔ AI Contract
+├─ docs/          # API / Operation / Design Docs
+├─ ERD/
+└─ assets/        # Portfolio UI / Research / Team
 ```
 
-## 빠른 시작
+---
 
-### 1. 사전 준비
+## 11. 성과와 프로젝트 활동 🏆
 
-| 도구 | 기준 |
+### 🥈 SSAFY 공통 프로젝트 본선 발표회 2등
+
+전체 109팀 중 삼성 임직원 유저테스트 10팀에 선정됐고,  
+반 대표로 본선 발표회에 진출해 **2등**을 기록했습니다.
+
+<p align="center">
+  <img src="./assets/team/final-presentation-rehearsal.jpg"
+       alt="SSAFY 공통 프로젝트 본선 발표회 전 캠퍼스 대상 리허설"
+       width="850"/>
+</p>
+
+<p align="center">
+  <sub>본선 발표회를 앞두고 전 캠퍼스 대상으로 서비스 발표와 시연을 리허설하는 모습</sub>
+</p>
+
+### 📸 SSAFY CSR 달력 촬영
+
+프로젝트 활동 이후 SSAFY 대표로 삼성전자 CSR 달력 촬영에도 참여했습니다.
+
+<table align="center">
+  <tr>
+    <td align="center"><img src="./assets/team/csr-calendar-01.jpg" width="250"/></td>
+    <td align="center"><img src="./assets/team/csr-calendar-02.jpg" width="250"/></td>
+    <td align="center"><img src="./assets/team/csr-calendar-03.jpg" width="250"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./assets/team/csr-calendar-04.jpg" width="250"/></td>
+    <td align="center"><img src="./assets/team/csr-calendar-05.jpg" width="250"/></td>
+    <td align="center"><b>싸방팔방<br/>P6IX</b></td>
+  </tr>
+</table>
+
+---
+
+## 12. What I Learned 💭
+
+싸방팔방에서 가장 크게 배운 것은  
+**“성공”과 “완료”를 하나의 상태로 뭉개면 안 된다**는 점입니다.
+
+서비스 하나에서도 완료 기준은 여러 단계로 나뉘었습니다.
+
+| 경계 | 제가 확인한 질문 |
 |---|---|
-| Node.js | 22.13.0 이상 |
-| JDK | 17 |
-| Docker | Docker Compose 플러그인을 사용할 수 있는 버전 |
-| Android SDK | Platform 36, Build-Tools 36.0.0, Emulator |
-| Android 가상 기기 | Pixel 8 / API 36 / Google Play 이미지 권장 |
+| **DB** | 저장 호출이 아니라 실제 Commit까지 끝났는가? |
+| **Kafka** | DB 저장 뒤 Message 발행 의무가 남아 있지 않은가? |
+| **Consumer** | 실패했는데 Offset을 Commit해도 되는가? |
+| **실시간 통신** | DB Commit 전 메시지가 Client에 노출되지 않는가? |
+| **Client** | DB에는 있지만 현재 화면에는 빠지는 공백이 없는가? |
+| **AI** | LLM 결과를 그대로 믿지 않고 Code로 검증할 수 있는가? |
+| **CI/CD** | Test Stage가 있는 것이 아니라 실제 실패 시 Deploy가 막히는가? |
+| **운영** | Container가 켜진 것이 아니라 외부에서 서비스가 다시 동작하는가? |
 
-Android 최초 설정은 [frontend 팀원 시작 가이드](frontend/README.md)를 먼저 확인하세요. Mapbox와 소셜 로그인 네이티브 모듈을 사용하므로 Expo Go가 아닌 development build가 필요합니다.
+이 기준은 Flyway 장애 복구, Kafka Consumer, 실시간 채팅,  
+현장 기록 멱등성, AI Worker, CI/CD 실패 주입, GCP 이전까지 반복해서 적용됐습니다.
 
-### 2. 로컬 환경변수 준비
+> ### 처리 시작이 아니라 **실제 완료까지 확인하고, 실패 시 동작까지 설계하는 Backend/Infra 개발자**
+>
+> 싸방팔방을 통해 가장 분명해진 개발 기준입니다.
 
-저장소 루트에서 예시 파일을 복사합니다.
+---
 
-```powershell
-Copy-Item infra\.env.example infra\.env.local
-Copy-Item frontend\.env.example frontend\.env.local
-```
-
-macOS/Linux에서는 다음 명령을 사용합니다.
-
-```bash
-cp infra/.env.example infra/.env.local
-cp frontend/.env.example frontend/.env.local
-```
-
-`infra/.env.local`의 `JWT_SECRET`은 반드시 32바이트 이상의 Base64 키로 교체해야 합니다. 실제 키, OAuth Secret, Firebase 서비스 계정, GMS 키는 Git·MR·채팅·로그에 남기지 마세요.
-
-Android 에뮬레이터는 개발 PC의 API를 `localhost`가 아닌 `10.0.2.2`로 접근합니다.
-
-```dotenv
-EXPO_PUBLIC_API_BASE_URL=http://10.0.2.2:8080
-EXPO_PUBLIC_WS_URL=ws://10.0.2.2:8080/ws
-```
-
-### 3. PostgreSQL·Redis·Kafka·AI 실행
-
-저장소 루트에서 실행합니다.
-
-```bash
-docker compose --env-file infra/.env.local -f infra/docker-compose.local.yml up -d
-docker compose --env-file infra/.env.local -f infra/docker-compose.local.yml ps
-```
-
-Local Compose는 PostgreSQL, Redis, Kafka, REPORT 토픽 초기화 작업과 FastAPI AI 서비스를 실행합니다. AI 서비스는 `http://localhost:8000/health`에서 확인할 수 있습니다.
-
-### 4. Backend 실행
-
-`infra/.env.local` 자동 import가 `backend/` 작업 디렉터리를 기준으로 동작하므로 반드시 해당 폴더에서 실행합니다.
-
-Windows PowerShell:
-
-```powershell
-Set-Location backend
-.\gradlew.bat bootRun
-```
-
-macOS/Linux:
-
-```bash
-cd backend
-./gradlew bootRun
-```
-
-- Health: `http://localhost:8080/actuator/health`
-- Swagger UI: `http://localhost:8080/swagger-ui/index.html`
-- OpenAPI JSON: `http://localhost:8080/v3/api-docs`
-
-### 5. Frontend 실행
-
-```bash
-cd frontend
-npm ci
-npm run typecheck
-npm run prebuild
-npx expo run:android
-```
-
-첫 native build 이후 JS/TS만 변경했다면 다시 빌드하지 않고 다음 명령으로 개발합니다.
-
-```bash
-npm start
-```
-
-환경변수나 Metro 캐시를 갱신해야 할 때는 `npm start -- --clear`를 사용합니다.
-
-### 6. 종료
-
-```bash
-docker compose --env-file infra/.env.local -f infra/docker-compose.local.yml down
-```
-
-볼륨까지 삭제하는 `down -v`는 로컬 데이터가 모두 제거되므로 의도한 경우에만 사용하세요.
-
-## 환경변수
-
-환경별 실제 값은 커밋하지 않고 예시 파일을 기준으로 개인 환경에서 관리합니다.
-
-| 파일 | 사용 주체 | 주요 설정 |
-|---|---|---|
-| `infra/.env.local` | Backend·Local Compose·AI | DB, Redis, Kafka, JWT, OAuth, FCM, Media Gateway, STT, REPORT Worker, RAG, GMS |
-| `frontend/.env.local` | Expo 앱 | API·WebSocket URL, Mapbox 공개 토큰, Kakao·Naver 앱 식별자, 데모 모드 |
-| `ai/.env.local` | AI 단독 실행·평가 | LLM 공급자, GMS 모델 URL, STT, Report Worker, RAG, 웹 검색 |
-| `infra/.env.prod` | 운영 Compose | 운영 도메인, 컨테이너, 인증서, 통합 서비스 설정 |
-
-기본 원칙:
-
-- `EXPO_PUBLIC_` 변수는 앱 번들에 포함되므로 비밀값을 저장하지 않습니다.
-- `JWT_SECRET`, OAuth Secret, GMS 키, Media Gateway 내부 토큰은 저장소에 커밋하지 않습니다.
-- FCM 서비스 계정 JSON은 저장소 밖에 보관하고 경로 또는 Jenkins Secret으로 주입합니다.
-- REPORT Kafka Producer와 Worker, RAG 등 운영 기능 플래그는 기본 비활성 상태이며 E2E 검증과 승인 후 함께 활성화합니다.
-
-전체 변수와 선택 기능 설정은 [로컬 개발 환경 문서](docs/LOCAL_DEVELOPMENT.md)와 각 `.env.example`을 참고하세요.
-
-## 테스트와 품질 확인
-
-### Frontend
-
-```bash
-cd frontend
-npm run typecheck
-npm run lint
-npm test
-npm run doctor
-```
-
-### Backend
-
-```bash
-cd backend
-./gradlew clean test          # Windows: .\gradlew.bat clean test
-./gradlew postgresTest        # Docker가 필요한 PostgreSQL Testcontainers 테스트
-./gradlew bootJar
-```
-
-Spring→Kafka→AI→Kafka STT 왕복 검증은 Local Compose를 실행한 뒤 `sttKafkaE2eTest` 태스크로 수행합니다.
-
-### AI
-
-```bash
-cd ai
-python -m venv .venv
-python -m pip install -r requirements.txt
-python -m pytest
-```
-
-REPORT·Kafka·Backend 격리 E2E는 각각의 `RUN_REPORT_KAFKA_E2E`, `RUN_REPORT_BACKEND_E2E`, `RUN_STT_KAFKA_E2E` 플래그와 전용 환경이 준비된 경우에만 실행됩니다.
-
-## 배포와 운영
-
-- 운영 서비스는 `infra/docker-compose.prod.yml`의 PostgreSQL, Redis, Kafka, Spring Boot, FastAPI 컨테이너로 구성됩니다.
-- Host Nginx가 HTTP→HTTPS 리다이렉트, TLS 종료, API 프록시와 리포트 앱 링크 랜딩을 담당합니다.
-- `Jenkinsfile.verify`는 브랜치 변경을 검증하고, `Jenkinsfile`은 운영 환경 검사·이미지 빌드·Compose 배포·Health 확인·외부 Smoke Test를 수행합니다.
-- 배포 성공 시 최근 정상 Backend 이미지와 메타데이터를 남겨 수동 복구에 사용합니다.
-- PostgreSQL 백업·격리 복구, Kafka Consumer 장애 대응, 로그 비밀값 제거 절차를 운영 스크립트로 관리합니다.
-
-운영 변경 전에는 반드시 [배포·복구 Runbook](docs/INF-006_DEPLOYMENT_RUNBOOK.md)과 [운영 가이드](docs/INF-007_OPERATIONS.md)를 확인하세요.
-
-## 개발 규칙
-
-### 브랜치
-
-- `main`: 운영
-- `develop`: 개발 통합
-- `feature/*`: 기능 개발
-- `release/*`: 배포 준비
-- `hotfix/*`: 운영 긴급 수정
-
-### 커밋
-
-| 타입 | 용도 |
-|---|---|
-| `✨ feat` | 새로운 기능 |
-| `🐛 fix` | 버그 수정 |
-| `📝 docs` | 문서 수정 |
-| `🎨 style` | 동작을 바꾸지 않는 스타일 수정 |
-| `♻ refactor` | 리팩터링 |
-| `✅ test` | 테스트 추가·수정 |
-| `🔧 chore` | 빌드·패키지·도구 설정 |
-
-개인 환경 파일, 실제 인증 키, 서비스 계정, 토큰, 사용자 원문 데이터는 커밋하지 않습니다. 데이터베이스 스키마 변경은 JPA 자동 생성이 아니라 새 Flyway 마이그레이션으로 추가합니다.
-
-## 문서 안내
-
-| 문서 | 내용 |
-|---|---|
-| [Frontend 시작 가이드](frontend/README.md) | Android SDK·에뮬레이터·development build·문제 해결 |
-| [로컬 개발 환경](docs/LOCAL_DEVELOPMENT.md) | Backend, PostgreSQL, Redis, Kafka, AI 상세 실행법 |
-| [API 명세](docs/API.md) | REST·WebSocket 요청/응답과 예외 처리 |
-| [ERD](docs/ERD.md) | 데이터 모델과 주요 관계 |
-| [Android 초기 세팅](docs/ANDROID_SETUP.md) | Expo·네이티브 모듈·EAS·환경변수 설정 |
-| [Frontend UI 가이드](docs/FRONTEND_UI_GUIDE.md) | 화면·컴포넌트 UI 규칙 |
-| [AI 리포트 입력 계약](docs/AI_REPORT_INPUT_CONTRACT.md) | 리포트 정규화 입력의 소유권과 필드 규칙 |
-| [REPORT Kafka 계약](docs/contracts/report-requested-v1.md) | Backend Producer와 AI Consumer 이벤트 계약 |
-| [Report Worker 내부 API 계약](docs/contracts/report-worker-backend-v1.md) | 처리권·입력·진행·완료·실패 계약 |
-| [모델 평가](docs/MODEL_EVALUATION.md) | GMS 3개 모델 평가 프로파일과 실행법 |
-| [배포·복구 Runbook](docs/INF-006_DEPLOYMENT_RUNBOOK.md) | Nginx HTTPS, Jenkins, 배포, 진단과 복구 |
-| [운영 가이드](docs/INF-007_OPERATIONS.md) | Kafka, Report Worker, DLT, 백업·복구와 장애 대응 |
-| [원스토어 출시 자료](onestore-release/README.md) | 스토어 등록 문구, 이미지, 검수와 릴리스 체크리스트 |
+<p align="center">
+  <b>SSAFY 15th · Mobile Track</b><br/>
+  Team Lead · Backend / AI / Infra Integration<br/>
+  <b>윤다인</b>
+</p>
