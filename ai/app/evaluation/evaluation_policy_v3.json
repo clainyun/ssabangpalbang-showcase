@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 3,
+  "policyId": "gms-project-fit-v3-official",
+  "datasetFile": "datasets/chatbot_grounding_v3.json",
+  "datasetSha256": "62b503f06f82f1b375518bb9f3a64a90a7d973641d4220f0ed7a17b52b0fb3e2",
+  "promptSha256ByCase": {
+    "direct-report-01": "e88da406bd7914aeff78bf76b54226bf5b5c7c39d2d30f49722dad42afb2fb30",
+    "direct-report-02": "badf517cc83f828ebf8b87f6c25133b1e4d53322c4842072fcac80b1f167d6bf",
+    "direct-report-03": "6d57f7e526e85b3a9a206fcb6d35d66776ff495513de6fa0bb06ae0333fff9a5",
+    "direct-report-04": "60c99a01369593aa16e5f43e69044a001e58a47cd340f60c106f88c68242fcd2",
+    "long-report-8k-first": "fdd5f7e1e07f990e43852ffd431afca44f563854160979ccfefca7afd47bf832",
+    "long-report-8k-middle": "7bfd509656349debab1c9c9f5a23415396fb274ccc3fcda769f60c5052ab0938",
+    "long-report-20k-last": "857899e0a590571ea1181cc48e65c4f63ca4cd21372e7e672c8b414d46578fe3",
+    "long-report-20k-first": "737fc06aa1d8f8c2d5b638a0f895626eb391866b0c370c8d5e0ada3b97892f9e",
+    "long-report-29k-middle": "59dea0f0e81ab52aa7cda42b29256aac62b599dc3cb22cda3746eae58f84a850",
+    "long-report-29k-last": "f89aef02513cdf5d17916b9283691214727e12b12a1ff2fb7b58f3549fbb093e",
+    "web-01": "c47fef10ef3f4fee8845f890d01469097a27053b6c7a24d5f05b24c338d154da",
+    "web-02": "121fb681570cf1aec2c4c0c3ad92f86abe33a35dfdeb54c125fd5ba543b4a474",
+    "web-03": "f881f58090165ee1463f729e438d6ba16725ee75297111cc46ce0787a9406c2d",
+    "insufficient-01": "07a893a5fca966271e34b01759e64ad86f1d01b48880756b8521bfc75badead5",
+    "insufficient-02": "6eae208fba7ea82edaf2fe1e643dc88fe902ce4fa6c969651dba721c4f2426df",
+    "insufficient-03": "acae28e9878e7456a11ee357b01e5d86ffab7dd37c040e0d29046b2d5080b2da",
+    "profile-01": "5ccd847fe87df0e8151f1b3f40f92a9a17bf584dd656dc9e2ea1dcfe0f384053",
+    "profile-02": "11e69dfe3f4690ea5ca710575c3841dbf0ebf754067ee326bb35a1cf5a0a5a16",
+    "mixed-report-priority-01": "c5e7ac28f64535a0b91d5a2a6ee59777a20eb8d8522e98cddeb46c1a5265ab0e",
+    "mixed-report-priority-02": "0d068bab75687ce16e946700e7564f86ba0e6bf4db83829dd726a257796655ff"
+  },
+  "promptManifestSha256": "1bb4e80622b9a46b412f15e855cb8609e29e9d752c6dbebf7c0d4a28fa934a2a",
+  "responseSchemaSha256": "1ad6efd66b798c9edbe88e3cffe10be2271bc935bb33af7504ff17d5b630efe3",
+  "evaluatorSha256": "74e57ef4a6fd82ec5988fe0b5ee446c1abd17bbb70124fd37cda4ea691140315",
+  "evaluatorContract": "production-fit-v3-boundary-aware-v1",
+  "models": ["gemini-3.5-flash", "gpt-5.4-mini", "claude-sonnet-4-6"],
+  "caseCount": 20,
+  "repetitions": 3,
+  "warmupPerModel": 1,
+  "totalCalls": 183,
+  "temperature": 0.2,
+  "retryCount": 0,
+  "anthropicMaxTokens": 4096,
+  "anthropicVersion": "2023-06-01",
+  "seed": 20260809,
+  "parser": "provider-native-plus-common-schema-v1",
+  "providerModes": {
+    "gemini": "json-mime-response-schema",
+    "openai": "json-object-developer-role",
+    "anthropic": "messages-prompt-json"
+  },
+  "schedule": {
+    "singleLane": true,
+    "latinSquare": true,
+    "minRequestIntervalMs": 6500,
+    "cooldownBeforeMeasuredSeconds": 300
+  },
+  "gates": {
+    "completionRateMin": 0.95,
+    "effectiveTaskMacroMin": 0.9,
+    "longAccuracyMin": 0.85,
+    "unsupportedViolationMax": 0.0,
+    "mixedViolationMax": 0.0,
+    "safetyMixedComplianceMin": 0.95,
+    "p95MsExclusiveMax": 20000
+  },
+  "scoreWeights": {
+    "effectiveTaskMacro": 0.5,
+    "longAccuracy": 0.25,
+    "safetyMixedCompliance": 0.15,
+    "relativeLatency": 0.1
+  }
+}

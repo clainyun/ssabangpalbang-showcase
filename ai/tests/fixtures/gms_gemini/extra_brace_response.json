@@ -1,0 +1,14 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "{\"answer\":\"세대당 주차 여유가 넉넉하지 않아 저녁 8시 이후에는 이중 주차가 이루어지고 있으며, 방문 차량 자리는 사실상 없습니다.\",\"usedSources\":[1]}}"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ]
+}

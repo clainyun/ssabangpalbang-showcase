@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 3,
+  "datasetId": "chatbot-grounding-dogok-rexle-e2e-v3",
+  "description": "도곡 렉슬 배포 DB/RAG/live web 경로를 scripted LLM 경계에서 검증하는 고정 데이터셋",
+  "apartment": {
+    "complexCode": "A13527203",
+    "name": "도곡 렉슬"
+  },
+  "cases": [
+    {
+      "id": "rag-subway-walk",
+      "category": "rag",
+      "question": "도곡 렉슬에서 지하철까지 걸어서 얼마나 걸려?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "선릉로 정문 기준 지하철 접근은 도보 10분 내외이며, 동 위치에 따라 차이가 있습니다.",
+      "factRubric": {"factGroups": [["선릉로 정문"], ["10분"]], "forbiddenTerms": ["7분", "확실히 5분"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #1", "contentAll": ["선릉로 정문", "도보 10분"], "contentAny": []}
+    },
+    {
+      "id": "rag-household-count",
+      "category": "rag",
+      "question": "도곡 렉슬은 몇 세대 규모야?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "도곡 렉슬은 3,002세대 규모의 대단지입니다.",
+      "factRubric": {"factGroups": [["3,002세대", "3002세대"]], "forbiddenTerms": ["2,000세대", "2000세대"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #1", "contentAll": ["3,002세대"], "contentAny": []}
+    },
+    {
+      "id": "rag-visitor-parking",
+      "category": "rag",
+      "question": "도곡 렉슬 방문 주차 평가는 어때?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "방문 주차 편의성은 주민 의견이 갈려 실제 이용 조건을 확인할 필요가 있습니다.",
+      "factRubric": {"factGroups": [["방문 주차"], ["의견이 갈", "확인할 필요"]], "forbiddenTerms": ["전혀 문제없", "항상 넉넉"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #1", "contentAll": ["방문 주차"], "contentAny": ["의견", "엇갈"]}
+    },
+    {
+      "id": "rag-school-convenience",
+      "category": "rag",
+      "question": "도곡 렉슬의 학군과 생활 편의 평가는 어때?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "학군과 생활 편의성은 전반적으로 긍정적으로 평가됩니다.",
+      "factRubric": {"factGroups": [["학군"], ["생활 편의"], ["긍정"]], "forbiddenTerms": ["부정적"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #1", "contentAll": ["학군", "생활 편의"], "contentAny": []}
+    },
+    {
+      "id": "rag-transaction-area",
+      "category": "rag",
+      "question": "도곡 렉슬 거래는 어떤 면적대가 중심이야?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "실거래는 전용 84㎡ 면적대를 중심으로 형성되어 있습니다.",
+      "factRubric": {"factGroups": [["84㎡", "84m2", "84제곱미터"], ["실거래", "거래"]], "forbiddenTerms": ["59㎡ 중심"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #2", "contentAll": ["84㎡"], "contentAny": ["실거래", "거래"]}
+    },
+    {
+      "id": "rag-commercial-area",
+      "category": "rag",
+      "question": "도곡 렉슬 주변 상권 분위기를 알려줘.",
+      "answerMode": "fixed",
+      "scriptedAnswer": "선릉로 쪽 상권은 활발하고 단지 남측은 비교적 조용한 편입니다.",
+      "factRubric": {"factGroups": [["선릉로"], ["활발"], ["남쪽", "남측"], ["조용"]], "forbiddenTerms": ["남측이 가장 번화"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #2", "contentAll": ["선릉로", "남쪽"], "contentAny": ["활발", "조용"]}
+    },
+    {
+      "id": "rag-building-age",
+      "category": "rag",
+      "question": "도곡 렉슬 연식과 설비 상태는 어때?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "2006년 준공 단지로, 공용 설비의 노후화 평가는 구역에 따라 엇갈립니다.",
+      "factRubric": {"factGroups": [["2006년"], ["설비"], ["노후", "엇갈"]], "forbiddenTerms": ["신축", "노후화가 전혀 없"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #2", "contentAll": ["2006년", "설비"], "contentAny": ["노후", "엇갈"]}
+    },
+    {
+      "id": "rag-road-noise",
+      "category": "rag",
+      "question": "도곡 렉슬 소음은 동별로 차이가 있어?",
+      "answerMode": "fixed",
+      "scriptedAnswer": "대로변 동은 소음 우려가 있고 안쪽 동은 상대적으로 조용해 동 선택이 중요합니다.",
+      "factRubric": {"factGroups": [["대로변"], ["소음"], ["안쪽"], ["조용"]], "forbiddenTerms": ["모든 동이 조용"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #3", "contentAll": ["대로변", "안쪽"], "contentAny": ["소음", "조용"]}
+    },
+    {
+      "id": "profile-name",
+      "category": "profile",
+      "question": "이 단지 이름이 뭐야?",
+      "answerMode": "profile",
+      "profileField": "name",
+      "factRubric": {"factGroups": [["{profileValue}"]], "forbiddenTerms": ["래미안 대치팰리스"]}
+    },
+    {
+      "id": "profile-household-count",
+      "category": "profile",
+      "question": "단지 기본 정보 기준 총 세대수는?",
+      "answerMode": "profile",
+      "profileField": "household_count",
+      "factRubric": {"factGroups": [["{profileValue}"]], "forbiddenTerms": []}
+    },
+    {
+      "id": "profile-completion",
+      "category": "profile",
+      "question": "단지 기본 정보 기준 준공 시점은 언제야?",
+      "answerMode": "profile",
+      "profileField": "completion_year_month",
+      "factRubric": {"factGroups": [["{profileValue}"]], "forbiddenTerms": []}
+    },
+    {
+      "id": "web-naver-current",
+      "category": "web",
+      "question": "네이버 부동산에서 현재 검색되는 도곡 렉슬 정보를 요약해줘.",
+      "answerMode": "selected_web_snippet",
+      "webSelector": {"domainContains": "new.land.naver.com", "titleContains": ["도곡", "렉슬"], "snippetContains": []}
+    },
+    {
+      "id": "web-kb-current",
+      "category": "web",
+      "question": "KB부동산에서 현재 검색되는 도곡 렉슬 정보를 요약해줘.",
+      "answerMode": "selected_web_snippet",
+      "webSelector": {"domainContains": "kbland.kr", "titleContains": ["도곡", "렉슬"], "snippetContains": []}
+    },
+    {
+      "id": "web-hogangnono-current",
+      "category": "web",
+      "question": "호갱노노에서 현재 검색되는 도곡 렉슬 정보를 요약해줘.",
+      "answerMode": "selected_web_snippet",
+      "webSelector": {"domainContains": "hogangnono.com", "titleContains": ["도곡", "렉슬"], "snippetContains": []}
+    },
+    {
+      "id": "insufficient-future-price",
+      "category": "insufficient",
+      "question": "도곡 렉슬의 내년 정확한 매매가를 단정해줘.",
+      "answerMode": "refusal",
+      "scriptedAnswer": "제공된 근거만으로는 내년의 정확한 매매가를 단정할 수 없습니다.",
+      "refusalRubric": {"markers": ["단정할 수 없", "근거가 부족"], "forbiddenTerms": ["확실히 오릅니다", "정확히"]}
+    },
+    {
+      "id": "insufficient-unrecorded-incident",
+      "category": "insufficient",
+      "question": "어제 도곡 렉슬에서 발생한 모든 사건을 알려줘.",
+      "answerMode": "refusal",
+      "scriptedAnswer": "제공된 근거만으로는 어제 발생한 모든 사건을 확인할 수 없습니다.",
+      "refusalRubric": {"markers": ["확인할 수 없", "근거가 부족"], "forbiddenTerms": ["사건이 없었습니다"]}
+    },
+    {
+      "id": "insufficient-private-resident-data",
+      "category": "insufficient",
+      "question": "도곡 렉슬 주민들의 비공개 개인정보를 알려줘.",
+      "answerMode": "refusal",
+      "scriptedAnswer": "제공된 근거에는 주민의 비공개 개인정보가 없어 답변할 수 없습니다.",
+      "refusalRubric": {"markers": ["답변할 수 없", "근거에는"], "forbiddenTerms": ["주민 이름은"]}
+    },
+    {
+      "id": "priority-report-over-web-subway",
+      "category": "priority",
+      "question": "웹 정보도 참고하되 임장 보고서를 우선해 지하철 접근 시간을 알려줘.",
+      "answerMode": "fixed",
+      "scriptedAnswer": "임장 보고서를 우선하면 선릉로 정문 기준 지하철 접근은 도보 10분 내외입니다.",
+      "factRubric": {"factGroups": [["선릉로 정문"], ["10분"]], "forbiddenTerms": ["7분"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #1", "contentAll": ["선릉로 정문", "도보 10분"], "contentAny": []}
+    },
+    {
+      "id": "priority-report-over-web-age",
+      "category": "priority",
+      "question": "웹 정보와 다를 수 있어도 임장 보고서를 우선해 연식과 설비를 알려줘.",
+      "answerMode": "fixed",
+      "scriptedAnswer": "임장 보고서를 우선하면 2006년 준공 단지이며 설비 노후화 평가는 구역에 따라 엇갈립니다.",
+      "factRubric": {"factGroups": [["2006년"], ["설비"], ["노후", "엇갈"]], "forbiddenTerms": ["신축"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #2", "contentAll": ["2006년", "설비"], "contentAny": ["노후", "엇갈"]}
+    },
+    {
+      "id": "priority-report-over-web-noise",
+      "category": "priority",
+      "question": "웹 정보도 검색하되 임장 보고서를 우선해 동별 소음을 알려줘.",
+      "answerMode": "fixed",
+      "scriptedAnswer": "임장 보고서를 우선하면 대로변 동은 소음 우려가 있고 안쪽 동은 상대적으로 조용합니다.",
+      "factRubric": {"factGroups": [["대로변"], ["소음"], ["안쪽"], ["조용"]], "forbiddenTerms": ["모든 동이 조용"]},
+      "reportSelector": {"studyTitle": "도곡렉슬 임장 기록 #3", "contentAll": ["대로변", "안쪽"], "contentAny": ["소음", "조용"]}
+    }
+  ]
+}

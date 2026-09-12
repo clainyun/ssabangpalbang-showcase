@@ -1,0 +1,18 @@
+{
+  "basisType": "REPORT",
+  "basisLabel": "리포트 기반",
+  "answer": "임장 리포트에서는 옥수역 개찰구까지 도보 약 8분이 걸렸다는 기록이 확인됩니다.",
+  "sources": [
+    {
+      "sourceType": "REPORT",
+      "sourceId": 48,
+      "reportId": 48,
+      "title": "래미안 옥수 리버젠 임장 리포트",
+      "sectionLabel": null,
+      "url": null,
+      "sourceAt": "2026-07-25T16:00:00+09:00"
+    }
+  ],
+  "topSimilarity": 0.72,
+  "fallbackToWeb": false
+}

@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="marker-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#111111" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <g filter="url(#marker-shadow)">
+    <path
+      d="M100 238L256 108L412 238L392 254V348Q392 380 360 380H302L256 438L210 380H152Q120 380 120 348V254Z"
+      fill="#2F5D50"
+    />
+
+    <path
+      d="M120 218V348Q120 380 152 380H210L256 438L302 380H360Q392 380 392 348V218"
+      fill="none"
+      stroke="#2F5D50"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <path
+      d="M100 238L256 108L412 238"
+      fill="none"
+      stroke="#6FC08C"
+      stroke-width="30"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+</svg>

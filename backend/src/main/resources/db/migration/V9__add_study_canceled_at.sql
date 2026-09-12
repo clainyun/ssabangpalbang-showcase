@@ -1,0 +1,2 @@
+ALTER TABLE study
+    ADD COLUMN canceled_at TIMESTAMPTZ;

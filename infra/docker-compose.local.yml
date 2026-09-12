@@ -1,0 +1,341 @@
+name: ssabangpalbang-local
+
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    image: ssabangpalbang-postgres:17-vector-postgis
+    container_name: ssabangpalbang-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: Asia/Seoul
+
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT}:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - ssabang-network
+
+  redis:
+    image: redis:7.4.9-alpine
+    container_name: ssabangpalbang-redis
+    restart: unless-stopped
+
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --requirepass
+      - "${REDIS_PASSWORD}"
+
+    ports:
+      - "127.0.0.1:${REDIS_PORT}:6379"
+
+    volumes:
+      - redis-data:/data
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "redis-cli",
+          "-a",
+          "${REDIS_PASSWORD}",
+          "ping"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - ssabang-network
+
+  kafka:
+    image: apache/kafka:4.3.1
+    hostname: kafka
+    container_name: ssabangpalbang-kafka
+    restart: unless-stopped
+
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_LISTENERS: >-
+        CONTROLLER://:29093,
+        INTERNAL://:19092,
+        EXTERNAL://:9092
+
+      KAFKA_ADVERTISED_LISTENERS: >-
+        INTERNAL://kafka:19092,
+        EXTERNAL://localhost:${KAFKA_PORT}
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: >-
+        CONTROLLER:PLAINTEXT,
+        INTERNAL:PLAINTEXT,
+        EXTERNAL:PLAINTEXT
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
+
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_SHARE_COORDINATOR_STATE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_SHARE_COORDINATOR_STATE_TOPIC_MIN_ISR: 1
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+
+    ports:
+      - "127.0.0.1:${KAFKA_PORT}:9092"
+
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:19092 --list >/dev/null 2>&1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 20s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - ssabang-network
+
+  # INF-007 Phase 2: create-if-not-exists for REPORT request + DLT topics.
+  # Does not change STT topics or Backend NewTopic beans.
+  kafka-report-topic-init:
+    image: apache/kafka:4.3.1
+    container_name: ssabangpalbang-kafka-report-topic-init
+    restart: "no"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      REPORT_KAFKA_TOPIC: ${REPORT_KAFKA_TOPIC:-field-visit.report.request.v1}
+      REPORT_KAFKA_DLT_TOPIC: ${REPORT_KAFKA_DLT_TOPIC:-field-visit.report.request.dlq.v1}
+      REPORT_KAFKA_PARTITIONS: ${REPORT_KAFKA_PARTITIONS:-1}
+      REPORT_KAFKA_RETENTION_MS: ${REPORT_KAFKA_RETENTION_MS:-604800000}
+      REPORT_KAFKA_DLT_RETENTION_MS: ${REPORT_KAFKA_DLT_RETENTION_MS:-604800000}
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -euo pipefail
+        BOOT=kafka:19092
+        create_topic() {
+          local topic="$$1"
+          local retention="$$2"
+          if /opt/kafka/bin/kafka-topics.sh --bootstrap-server "$$BOOT" --list | grep -Fxq "$$topic"; then
+            echo "topic exists: $$topic"
+          else
+            /opt/kafka/bin/kafka-topics.sh --bootstrap-server "$$BOOT" \
+              --create --topic "$$topic" \
+              --partitions "$${REPORT_KAFKA_PARTITIONS}" \
+              --replication-factor 1 \
+              --config "cleanup.policy=delete" \
+              --config "retention.ms=$${retention}"
+            echo "topic created: $$topic"
+          fi
+        }
+        create_topic "$${REPORT_KAFKA_TOPIC}" "$${REPORT_KAFKA_RETENTION_MS}"
+        create_topic "$${REPORT_KAFKA_DLT_TOPIC}" "$${REPORT_KAFKA_DLT_RETENTION_MS}"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - ssabang-network
+
+  ai:
+    build:
+      context: ../ai
+      dockerfile: Dockerfile
+    image: ssabangpalbang-ai:local
+    container_name: ssabangpalbang-ai
+    restart: unless-stopped
+
+    environment:
+      AI_PROVIDER: ${AI_PROVIDER:-openai-compatible}
+      AI_API_BASE_URL: ${AI_API_BASE_URL:-}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_MODEL: ${AI_MODEL:-}
+      CHATBOT_AI_PROVIDER: ${CHATBOT_AI_PROVIDER:-}
+      CHATBOT_AI_API_BASE_URL: ${CHATBOT_AI_API_BASE_URL:-}
+      CHATBOT_AI_API_KEY: ${CHATBOT_AI_API_KEY:-}
+      CHATBOT_AI_MODEL: ${CHATBOT_AI_MODEL:-}
+      AI_TEMPERATURE: ${AI_TEMPERATURE:-}
+      AI_CONNECT_TIMEOUT: ${AI_CONNECT_TIMEOUT:-3}
+      AI_READ_TIMEOUT: ${AI_READ_TIMEOUT:-20}
+      AI_JSON_RETRY_COUNT: ${AI_JSON_RETRY_COUNT:-2}
+      AI_STRUCTURED_OUTPUT: ${AI_STRUCTURED_OUTPUT:-true}
+      GMS_KEY: ${GMS_KEY:-}
+      GMS_GEMINI_ENDPOINT_URL: ${GMS_GEMINI_ENDPOINT_URL:-https://ai-gateway.example.com/gmsapi/generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent}
+      GMS_GEMINI_MODEL: ${GMS_GEMINI_MODEL:-gemini-3.5-flash}
+      GMS_OPENAI_ENDPOINT_URL: ${GMS_OPENAI_ENDPOINT_URL:-}
+      GMS_OPENAI_MODEL: ${GMS_OPENAI_MODEL:-gpt-5.4-mini}
+      GMS_ANTHROPIC_ENDPOINT_URL: ${GMS_ANTHROPIC_ENDPOINT_URL:-}
+      GMS_ANTHROPIC_MODEL: ${GMS_ANTHROPIC_MODEL:-claude-sonnet-4-6}
+      GMS_ANTHROPIC_VERSION: ${GMS_ANTHROPIC_VERSION:-2023-06-01}
+      GMS_ANTHROPIC_MAX_TOKENS: ${GMS_ANTHROPIC_MAX_TOKENS:-4096}
+      REPORT_INTERNAL_TOKEN: ${REPORT_INTERNAL_TOKEN:-}
+      # INF-007 Phase 2 Report Worker (default disabled; policy default block).
+      REPORT_WORKER_ENABLED: ${REPORT_WORKER_ENABLED:-false}
+      REPORT_KAFKA_BOOTSTRAP_SERVERS: kafka:19092
+      REPORT_KAFKA_TOPIC: ${REPORT_KAFKA_TOPIC:-field-visit.report.request.v1}
+      REPORT_KAFKA_GROUP_ID: ${REPORT_KAFKA_GROUP_ID:-ai.report-worker.v1}
+      REPORT_KAFKA_DLT_TOPIC: ${REPORT_KAFKA_DLT_TOPIC:-field-visit.report.request.dlq.v1}
+      REPORT_KAFKA_REJECTION_POLICY: ${REPORT_KAFKA_REJECTION_POLICY:-block}
+      REPORT_KAFKA_DLT_RETENTION_MS: ${REPORT_KAFKA_DLT_RETENTION_MS:-604800000}
+      REPORT_KAFKA_AUTO_OFFSET_RESET: ${REPORT_KAFKA_AUTO_OFFSET_RESET:-earliest}
+      REPORT_KAFKA_MAX_POLL_INTERVAL_MS: ${REPORT_KAFKA_MAX_POLL_INTERVAL_MS:-1800000}
+      REPORT_RETRY_BACKOFF_SECONDS: ${REPORT_RETRY_BACKOFF_SECONDS:-2}
+      REPORT_BACKEND_BASE_URL: ${REPORT_BACKEND_BASE_URL:-}
+      REPORT_BACKEND_TIMEOUT_SECONDS: ${REPORT_BACKEND_TIMEOUT_SECONDS:-15}
+      AI_REPORT_DB_HOST: postgres
+      AI_REPORT_DB_PORT: 5432
+      AI_REPORT_DB_NAME: ${POSTGRES_DB}
+      AI_REPORT_DB_USER: ${POSTGRES_USER}
+      AI_REPORT_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      AI_REPORT_DB_CONNECT_TIMEOUT_SECONDS: ${AI_REPORT_DB_CONNECT_TIMEOUT_SECONDS:-5}
+      AI_REPORT_DB_STATEMENT_TIMEOUT_MS: ${AI_REPORT_DB_STATEMENT_TIMEOUT_MS:-5000}
+      # AI-008 RAG 색인 · 검색 (DB 계정은 AI_REPORT_DB_* 와 같은 것을 쓴다)
+      RAG_ENABLED: ${RAG_ENABLED:-false}
+      RAG_DB_HOST: postgres
+      RAG_DB_PORT: 5432
+      RAG_DB_NAME: ${POSTGRES_DB}
+      RAG_DB_USER: ${POSTGRES_USER}
+      RAG_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      RAG_EMBEDDING_MODEL: ${RAG_EMBEDDING_MODEL:-dragonkue/multilingual-e5-small-ko-v2}
+      RAG_EMBEDDING_DEVICE: ${RAG_EMBEDDING_DEVICE:-cpu}
+      RAG_EMBEDDING_BATCH_SIZE: ${RAG_EMBEDDING_BATCH_SIZE:-16}
+      # AI-009 챗봇 답변
+      CHATBOT_SIMILARITY_THRESHOLD: ${CHATBOT_SIMILARITY_THRESHOLD:-0.5}
+      CHATBOT_TOP_K: ${CHATBOT_TOP_K:-5}
+      CHATBOT_MAX_CONTEXT_CHARS: ${CHATBOT_MAX_CONTEXT_CHARS:-6000}
+      WEB_SEARCH_PROVIDER: ${WEB_SEARCH_PROVIDER:-none}
+      WEB_SEARCH_API_KEY: ${WEB_SEARCH_API_KEY:-}
+      WEB_SEARCH_BASE_URL: ${WEB_SEARCH_BASE_URL:-}
+      WEB_SEARCH_TOP_K: ${WEB_SEARCH_TOP_K:-5}
+      WEB_SEARCH_TIMEOUT_SECONDS: ${WEB_SEARCH_TIMEOUT_SECONDS:-10}
+      STT_ENABLED: ${STT_ENABLED:-true}
+      KAFKA_BOOTSTRAP_SERVERS: kafka:19092
+      STT_KAFKA_REQUEST_TOPIC: ${STT_KAFKA_REQUEST_TOPIC:-field-visit.stt.request.v1}
+      STT_KAFKA_RESULT_TOPIC: ${STT_KAFKA_RESULT_TOPIC:-field-visit.stt.result.v1}
+      STT_KAFKA_DLQ_TOPIC: ${STT_KAFKA_DLQ_TOPIC:-field-visit.stt.request.dlq.v1}
+      STT_KAFKA_CONSUMER_GROUP: ${STT_KAFKA_CONSUMER_GROUP:-ssabangpalbang-ai-stt-v1}
+      STT_KAFKA_CLIENT_ID: ${STT_KAFKA_CLIENT_ID:-ssabangpalbang-ai-stt}
+      STT_KAFKA_MAX_POLL_INTERVAL_MS: ${STT_KAFKA_MAX_POLL_INTERVAL_MS:-900000}
+      STT_PROVIDER: ${STT_PROVIDER:-fake}
+      STT_MODEL: ${STT_MODEL:-whisper-1}
+      STT_OPENAI_API_KEY: ${STT_OPENAI_API_KEY:-}
+      STT_OPENAI_BASE_URL: ${STT_OPENAI_BASE_URL:-https://api.openai.com/v1}
+      STT_OPENAI_TIMEOUT_SECONDS: ${STT_OPENAI_TIMEOUT_SECONDS:-120}
+      STT_DEVICE: ${STT_DEVICE:-cpu}
+      STT_COMPUTE_TYPE: ${STT_COMPUTE_TYPE:-int8}
+      STT_MODEL_CACHE_DIR: /models
+      STT_MAX_CONCURRENCY: ${STT_MAX_CONCURRENCY:-1}
+      STT_TIMEOUT_SECONDS: ${STT_TIMEOUT_SECONDS:-600}
+      STT_WARMUP_TIMEOUT_SECONDS: ${STT_WARMUP_TIMEOUT_SECONDS:-300}
+      STT_FAKE_TEXT: ${STT_FAKE_TEXT:-테스트 음성 변환 결과입니다.}
+      AUDIO_STORE_PROVIDER: ${AUDIO_STORE_PROVIDER:-fake}
+      MEDIA_GATEWAY_BASE_URL: ${MEDIA_GATEWAY_BASE_URL:-}
+      MEDIA_GATEWAY_INTERNAL_TOKEN: ${MEDIA_GATEWAY_INTERNAL_TOKEN:-}
+      MEDIA_GATEWAY_TIMEOUT_SECONDS: ${MEDIA_GATEWAY_TIMEOUT_SECONDS:-15}
+      MEDIA_DOWNLOAD_TIMEOUT_SECONDS: ${MEDIA_DOWNLOAD_TIMEOUT_SECONDS:-120}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      STT_REDIS_KEY_PREFIX: ${STT_REDIS_KEY_PREFIX:-stt:attempt}
+      STT_REDIS_LEASE_SECONDS: ${STT_REDIS_LEASE_SECONDS:-900}
+      STT_REDIS_RESULT_TTL_SECONDS: ${STT_REDIS_RESULT_TTL_SECONDS:-604800}
+
+    volumes:
+      - ai-model-cache:/models
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+    # Must be >= ReportKafkaWorker shutdown_grace_seconds (default 30s).
+    stop_grace_period: 40s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - ssabang-network
+
+volumes:
+  postgres-data:
+  redis-data:
+  kafka-data:
+  ai-model-cache:
+
+networks:
+  ssabang-network:
+    driver: bridge

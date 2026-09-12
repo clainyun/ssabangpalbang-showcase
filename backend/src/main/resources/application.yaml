@@ -1,0 +1,201 @@
+spring:
+  application:
+    name: ssabangpalbang
+
+  profiles:
+    default: local
+
+  jackson:
+    time-zone: Asia/Seoul
+    serialization:
+      write-dates-as-timestamps: false
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+  task:
+    scheduling:
+      pool:
+        size: ${SCHEDULING_POOL_SIZE:4}
+      thread-name-prefix: scheduler-
+
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    listener:
+      ack-mode: record
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+
+  compression:
+    enabled: true
+    mime-types: application/json,application/json;charset=UTF-8
+    min-response-size: 1024
+
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: INFO
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: 30m
+  refresh-token-expiration: 30d
+
+oauth:
+  kakao:
+    client-id: ${KAKAO_REST_API_KEY:}
+    client-secret: ${KAKAO_CLIENT_SECRET:}
+  naver:
+    client-id: ${NAVER_CLIENT_ID:}
+    client-secret: ${NAVER_CLIENT_SECRET:}
+
+fcm:
+  enabled: ${FCM_ENABLED:false}
+  service-account-path: ${FCM_SERVICE_ACCOUNT_PATH:}
+
+sbpb:
+  schedule-reminder:
+    enabled: true
+    cron: "0 */10 * * * *"
+    lead-time-hours: 24
+
+ssabangpalbang:
+  apartment:
+    image:
+      public-base-url: ${APARTMENT_IMAGE_PUBLIC_BASE_URL:}
+  report:
+    internal:
+      token: ${REPORT_INTERNAL_TOKEN:}
+      lease-duration: ${REPORT_PROCESSING_LEASE_DURATION:30m}
+    rag:
+      enabled: ${REPORT_RAG_INDEX_ENABLED:true}
+      base-url: ${REPORT_RAG_BASE_URL:${CHATBOT_AI_BASE_URL:http://localhost:8000}}
+      index-path: ${REPORT_RAG_INDEX_PATH:/internal/v1/rag/reports/{reportId}}
+      connect-timeout: ${REPORT_RAG_CONNECT_TIMEOUT:3s}
+      read-timeout: ${REPORT_RAG_READ_TIMEOUT:60s}
+  media:
+    gateway:
+      enabled: ${MEDIA_GATEWAY_ENABLED:false}
+      base-url: ${MEDIA_GATEWAY_BASE_URL:}
+      internal-token: ${MEDIA_GATEWAY_INTERNAL_TOKEN:}
+      connect-timeout: ${MEDIA_GATEWAY_CONNECT_TIMEOUT:3s}
+      read-timeout: ${MEDIA_GATEWAY_READ_TIMEOUT:10s}
+      stt-retention: ${MEDIA_STT_RETENTION:24h}
+  chatbot:
+    ai:
+      base-url: ${CHATBOT_AI_BASE_URL:http://localhost:8000}
+      answer-path: /internal/v1/chatbot/answers
+      connect-timeout: 3s
+      # 리포트 벡터 검색 + LLM 호출이라 체크리스트(20s)보다 길다.
+      read-timeout: ${CHATBOT_AI_READ_TIMEOUT:60s}
+    recovery:
+      enabled: ${CHATBOT_ANSWER_RECOVERY_ENABLED:true}
+      poll-interval: ${CHATBOT_ANSWER_RECOVERY_POLL_INTERVAL:30s}
+      batch-size: ${CHATBOT_ANSWER_RECOVERY_BATCH_SIZE:20}
+      pending-timeout: ${CHATBOT_ANSWER_PENDING_TIMEOUT:2m}
+      processing-timeout: ${CHATBOT_ANSWER_PROCESSING_TIMEOUT:3m}
+  fieldvisit:
+    start:
+      allowed-radius-meters: ${FIELD_VISIT_START_ALLOWED_RADIUS_METERS:1000}
+    route:
+      poi:
+        base-url: https://dapi.kakao.com
+        rest-api-key: ${KAKAO_REST_API_KEY:}
+        connect-timeout: 2s
+        read-timeout: 3s
+        cache-ttl: 7d
+        page-size: 15
+      walking:
+        base-url: https://dapi.kakao.com
+        connect-timeout: 2s
+        read-timeout: 5s
+      min-waypoints: 2
+      max-waypoints: 5
+      waypoint-merge-meters: 80
+    ai:
+      base-url: ${FIELD_VISIT_AI_BASE_URL:http://localhost:8000}
+      generate-path: ${FIELD_VISIT_AI_GENERATE_PATH:/internal/v1/checklists/generate}
+      select-path: ${FIELD_VISIT_AI_SELECT_PATH:/internal/v1/checklists/select}
+      connect-timeout: 3s
+      read-timeout: 20s
+      retry-count: 0
+      # AI-002 catalog selection. 프로덕션에서 항상 catalog 경로만 사용한다.
+      catalog-selection-enabled: ${CHECKLIST_CATALOG_SELECTION_ENABLED:true}
+      catalog-classpath: classpath:data/checklist/ssabang_field_visit_checklist_raw_v3_300.json
+      catalog-shortlist-size: ${CHECKLIST_CATALOG_SHORTLIST_SIZE:50}
+      catalog-target-item-count: ${CHECKLIST_CATALOG_TARGET_ITEM_COUNT:25}
+    report:
+      kafka:
+        # AI-007 Consumer 배포와 E2E 준비 후 별도 승인으로만 true로 전환한다.
+        enabled: ${REPORT_KAFKA_ENABLED:false}
+        topic: ${REPORT_KAFKA_TOPIC:field-visit.report.request.v1}
+        partitions: ${REPORT_KAFKA_PARTITIONS:1}
+        replication-factor: ${REPORT_KAFKA_REPLICATION_FACTOR:1}
+        retention-ms: ${REPORT_KAFKA_RETENTION_MS:604800000}
+        cleanup-policy: delete
+        publish-timeout: ${REPORT_KAFKA_PUBLISH_TIMEOUT:10s}
+    stt:
+      kafka:
+        enabled: ${STT_KAFKA_ENABLED:false}
+        request-topic: ${STT_KAFKA_REQUEST_TOPIC:field-visit.stt.request.v1}
+        result-topic: ${STT_KAFKA_RESULT_TOPIC:field-visit.stt.result.v1}
+        request-dlq-topic: ${STT_KAFKA_REQUEST_DLQ_TOPIC:${STT_KAFKA_DLQ_TOPIC:field-visit.stt.request.dlq.v1}}
+        result-dlt-topic: ${STT_KAFKA_RESULT_DLT_TOPIC:field-visit.stt.result.dlt.v1}
+        consumer-group: ${STT_KAFKA_BACKEND_CONSUMER_GROUP:ssabangpalbang-backend-stt-v1}
+        publish-timeout: ${STT_KAFKA_PUBLISH_TIMEOUT:10s}
+        result-retry-backoff: ${STT_KAFKA_RESULT_RETRY_BACKOFF:1s}
+        result-max-retries: ${STT_KAFKA_RESULT_MAX_RETRIES:2}
+      reliability:
+        enabled: ${STT_RELIABILITY_ENABLED:${STT_KAFKA_ENABLED:false}}
+        outbox-poll-interval: ${STT_OUTBOX_POLL_INTERVAL:1s}
+        batch-size: ${STT_RELIABILITY_BATCH_SIZE:50}
+        dispatch-max-attempts: ${STT_DISPATCH_MAX_ATTEMPTS:10}
+        dispatch-retry-initial-delay: ${STT_DISPATCH_RETRY_INITIAL_DELAY:1s}
+        dispatch-retry-max-delay: ${STT_DISPATCH_RETRY_MAX_DELAY:1m}
+        watchdog-interval: ${STT_WATCHDOG_INTERVAL:30s}
+        pending-timeout: ${STT_PENDING_TIMEOUT:5m}
+        processing-timeout: ${STT_PROCESSING_TIMEOUT:15m}
+        cleanup-poll-interval: ${STT_CLEANUP_POLL_INTERVAL:10s}
+        cleanup-max-attempts: ${STT_CLEANUP_MAX_ATTEMPTS:10}
+        cleanup-retry-initial-delay: ${STT_CLEANUP_RETRY_INITIAL_DELAY:30s}
+        cleanup-retry-max-delay: ${STT_CLEANUP_RETRY_MAX_DELAY:1h}
+  home:
+    weather:
+      forecast-base-url: https://api.open-meteo.com
+      air-quality-base-url: https://air-quality-api.open-meteo.com
+      weather-alert-base-url: https://apis.data.go.kr/1360000/WthrWrnInfoService
+      kakao-local-base-url: https://dapi.kakao.com
+      kma-weather-alert-service-key: ${KMA_WEATHER_ALERT_SERVICE_KEY:}
+      kakao-rest-api-key: ${KAKAO_REST_API_KEY:}
+      connect-timeout: 2s
+      read-timeout: 3s
+      fresh-ttl: 15m
+      stale-ttl: 1h
+      alert-fresh-ttl: 5m
+      alert-stale-ttl: 30m
+      default-latitude: 37.5665
+      default-longitude: 126.9780
+      default-location-name: 서울특별시 중구

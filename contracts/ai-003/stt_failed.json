@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "sttId": "stt-9f2021ab",
+  "attemptNo": 2,
+  "status": "FAILED",
+  "failCode": "TRANSCRIPTION_TIMEOUT",
+  "failReason": "음성 변환 시간이 제한을 초과했습니다.",
+  "retryable": true,
+  "failedAt": "2026-07-30T12:31:00Z"
+}

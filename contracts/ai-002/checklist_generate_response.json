@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "category": "교통",
+      "title": "지하철역 접근성",
+      "subtitle": "단지 출입구에서 승강장까지 실제 소요 시간을 확인해 주세요.",
+      "displayOrder": 1
+    },
+    {
+      "category": "소음",
+      "title": "도로 소음",
+      "subtitle": null,
+      "displayOrder": 2
+    }
+  ]
+}

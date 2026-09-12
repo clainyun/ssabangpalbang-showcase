@@ -1,0 +1,101 @@
+{
+  "dog_walk_n": {
+    "frames": 6,
+    "scale": 0.54,
+    "src_max_h": 385,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_ne": {
+    "frames": 6,
+    "scale": 0.558,
+    "src_max_h": 373,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_e": {
+    "frames": 6,
+    "scale": 0.57,
+    "src_max_h": 365,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_se": {
+    "frames": 6,
+    "scale": 0.506,
+    "src_max_h": 411,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_s": {
+    "frames": 6,
+    "scale": 0.478,
+    "src_max_h": 435,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_sw": {
+    "frames": 6,
+    "scale": 0.437,
+    "src_max_h": 476,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_w": {
+    "frames": 6,
+    "scale": 0.484,
+    "src_max_h": 430,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_walk_nw": {
+    "frames": 6,
+    "scale": 0.644,
+    "src_max_h": 323,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_idle_s_1": {
+    "frames": 6,
+    "scale": 0.448,
+    "src_max_h": 464,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_idle_s_2": {
+    "frames": 6,
+    "scale": 0.478,
+    "src_max_h": 435,
+    "size": [
+      1536,
+      256
+    ]
+  },
+  "dog_idle_s_3": {
+    "frames": 6,
+    "scale": 0.413,
+    "src_max_h": 504,
+    "size": [
+      1536,
+      256
+    ]
+  }
+}

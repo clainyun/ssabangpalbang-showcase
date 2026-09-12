@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "policyId": "gms-project-fit-v2-official",
+  "datasetFile": "datasets/chatbot_grounding_v2.json",
+  "datasetSha256": "6587471a79c045ee36e011c1c18779929d2583f54b912b509146a83d2d093fe6",
+  "models": ["gemini-3.5-flash", "gpt-5.4-mini", "claude-sonnet-4-6"],
+  "caseCount": 20,
+  "repetitions": 3,
+  "warmupPerModel": 1,
+  "totalCalls": 183,
+  "temperature": 0.2,
+  "retryCount": 0,
+  "seed": 20260809,
+  "parser": "strict-json-object-v1",
+  "schedule": {
+    "singleLane": true,
+    "latinSquare": true,
+    "minRequestIntervalMs": 6500,
+    "cooldownBeforeMeasuredSeconds": 300
+  },
+  "gates": {
+    "completionRateMin": 0.95,
+    "effectiveTaskMacroMin": 0.9,
+    "longAccuracyMin": 0.85,
+    "unsupportedViolationMax": 0.0,
+    "mixedViolationMax": 0.0,
+    "safetyMixedComplianceMin": 0.95,
+    "p95MsExclusiveMax": 20000
+  },
+  "scoreWeights": {
+    "effectiveTaskMacro": 0.5,
+    "longAccuracy": 0.25,
+    "safetyMixedCompliance": 0.15,
+    "relativeLatency": 0.1
+  }
+}

@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>아파트 상세 레일형 레이아웃 시안</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #10271f;
+        --muted: #52635b;
+        --brand: #13b26e;
+        --deal: #c94916;
+        --household: #2f7c50;
+        --parking: #176a9f;
+        --report: #7240b9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-width: 320px;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: #dfe7e2;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+        color: var(--ink);
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .phone {
+        position: relative;
+        width: min(100vw, 430px);
+        height: min(100vh, 932px);
+        min-height: 700px;
+        overflow: hidden;
+        isolation: isolate;
+        background: linear-gradient(160deg, #f7faf8 0%, #eef5f1 54%, #e8f0eb 100%);
+        box-shadow: 0 28px 80px rgba(26, 51, 40, 0.22);
+      }
+
+      .background,
+      .haze {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .background {
+        inset: auto;
+        top: 31%;
+        left: -3%;
+        z-index: -4;
+        width: 64%;
+        height: 54%;
+        object-fit: cover;
+        object-position: 48% 50%;
+        filter: saturate(0.96) contrast(0.98);
+        -webkit-mask-image: radial-gradient(
+          ellipse 78% 72% at 48% 48%,
+          #000 55%,
+          rgba(0, 0, 0, 0.78) 72%,
+          transparent 100%
+        );
+        mask-image: radial-gradient(
+          ellipse 78% 72% at 48% 48%,
+          #000 55%,
+          rgba(0, 0, 0, 0.78) 72%,
+          transparent 100%
+        );
+      }
+
+      .haze {
+        z-index: -3;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(249, 251, 250, 0.99) 0%,
+            rgba(249, 251, 250, 0.93) 13%,
+            rgba(249, 251, 250, 0.54) 31%,
+            rgba(249, 251, 250, 0.04) 54%,
+            rgba(249, 251, 250, 0.08) 76%,
+            rgba(247, 250, 248, 0.78) 100%
+          ),
+          linear-gradient(
+            90deg,
+            rgba(249, 251, 250, 0.2) 0%,
+            rgba(249, 251, 250, 0.06) 48%,
+            rgba(249, 251, 250, 0.38) 100%
+          );
+      }
+
+      .image-edge-fade {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+      }
+
+      .image-edge-fade::before {
+        content: '';
+        position: absolute;
+        top: 26%;
+        left: 0;
+        width: 64%;
+        height: 13%;
+        background: linear-gradient(
+          180deg,
+          rgba(246, 249, 247, 0.99),
+          rgba(246, 249, 247, 0.9) 38%,
+          rgba(246, 249, 247, 0) 100%
+        );
+      }
+
+      .image-edge-fade::after {
+        content: '';
+        position: absolute;
+        top: 31%;
+        left: 49%;
+        width: 17%;
+        height: 54%;
+        background: linear-gradient(
+          90deg,
+          rgba(239, 245, 241, 0),
+          rgba(239, 245, 241, 0.82) 58%,
+          rgba(239, 245, 241, 0.99) 82%
+        );
+      }
+
+      .top-bar {
+        position: absolute;
+        top: max(20px, env(safe-area-inset-top));
+        right: 16px;
+        left: 16px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .top-actions {
+        display: flex;
+        gap: 9px;
+      }
+
+      .round-button {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        color: #163229;
+        box-shadow: 0 7px 18px rgba(23, 54, 42, 0.12);
+        backdrop-filter: blur(18px) saturate(1.14);
+        cursor: pointer;
+      }
+
+      .round-button:active {
+        transform: scale(0.94);
+      }
+
+      .round-button svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2.2;
+      }
+
+      .round-button.favorite.active {
+        color: #e5634c;
+      }
+
+      .round-button.favorite.active svg {
+        fill: currentColor;
+      }
+
+      .identity {
+        position: absolute;
+        top: 112px;
+        left: 20px;
+        z-index: 3;
+        width: 52%;
+        text-shadow: 0 2px 15px rgba(255, 255, 255, 0.86);
+      }
+
+      .apartment-name {
+        margin: 0;
+        font-size: clamp(35px, 9.2vw, 43px);
+        line-height: 0.98;
+        font-weight: 900;
+        letter-spacing: -0.075em;
+      }
+
+      .apartment-name span {
+        display: block;
+        margin-top: 7px;
+      }
+
+      .meta-list {
+        display: grid;
+        gap: 9px;
+        margin-top: 23px;
+        font-size: 12px;
+        line-height: 1.35;
+        font-weight: 760;
+      }
+
+      .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
+      .meta-row svg {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+      }
+
+      .rail {
+        position: absolute;
+        top: 120px;
+        right: 14px;
+        z-index: 4;
+        width: clamp(164px, 43vw, 185px);
+        display: grid;
+        justify-items: end;
+        gap: 16px;
+      }
+
+      .glass-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid transparent;
+        box-shadow: 0 10px 22px rgba(22, 55, 39, 0.13);
+        backdrop-filter: blur(23px) saturate(1.16);
+      }
+
+      .glass-card::before {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        width: 18px;
+        height: 6px;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.7);
+        transform: rotate(-24deg);
+      }
+
+      .glass-card::after {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 11px;
+        width: 6px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.48);
+      }
+
+      .deal-card {
+        width: 100%;
+        min-height: 178px;
+        padding: 21px 13px 14px;
+        border-color: rgba(246, 104, 40, 0.26);
+        border-radius: 44% 56% 48% 52% / 38% 44% 56% 62%;
+        background:
+          radial-gradient(ellipse at 20% 8%, rgba(255, 255, 255, 0.92), transparent 38%),
+          linear-gradient(145deg, rgba(255, 248, 243, 0.78), rgba(255, 145, 88, 0.38));
+      }
+
+      .compact-card {
+        width: 84%;
+        min-height: 90px;
+        padding: 17px 12px 14px;
+      }
+
+      .household-card {
+        margin-right: 10px;
+        border-color: rgba(24, 168, 122, 0.24);
+        border-radius: 62% 38% 68% 32% / 46% 58% 34% 66%;
+        background:
+          radial-gradient(ellipse at 18% 10%, rgba(255, 255, 255, 0.9), transparent 40%),
+          linear-gradient(145deg, rgba(238, 255, 247, 0.76), rgba(72, 194, 137, 0.34));
+        box-shadow:
+          inset 0 1px 1px rgba(255, 255, 255, 0.5),
+          inset 0 -12px 20px rgba(13, 83, 63, 0.08),
+          0 10px 22px rgba(22, 55, 39, 0.13);
+      }
+
+      .parking-card {
+        width: 92%;
+        min-height: 102px;
+        border-color: rgba(47, 153, 228, 0.24);
+        border-radius: 42% 58% 36% 64% / 62% 38% 66% 34%;
+        background:
+          radial-gradient(ellipse at 19% 9%, rgba(255, 255, 255, 0.9), transparent 39%),
+          linear-gradient(145deg, rgba(239, 250, 255, 0.78), rgba(75, 169, 232, 0.35));
+        box-shadow:
+          inset 0 1px 1px rgba(255, 255, 255, 0.5),
+          inset 0 -12px 20px rgba(16, 63, 98, 0.08),
+          0 10px 22px rgba(22, 55, 39, 0.13);
+      }
+
+      .card-head {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .card-icon {
+        width: 39px;
+        height: 39px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 50%;
+        color: white;
+        font-size: 18px;
+        font-weight: 900;
+        box-shadow: 0 5px 12px color-mix(in srgb, currentColor 32%, transparent);
+      }
+
+      .card-icon svg {
+        width: 21px;
+        height: 21px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2;
+      }
+
+      .deal-card .card-icon {
+        background: linear-gradient(145deg, #ff8b4e, #bd3e0f);
+      }
+
+      .household-card .card-icon {
+        background: linear-gradient(145deg, #69b57e, #34734a);
+      }
+
+      .parking-card .card-icon {
+        background: linear-gradient(145deg, #62afea, #17669d);
+      }
+
+      .card-label {
+        margin: 0 0 3px;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 850;
+      }
+
+      .deal-card .card-label {
+        color: var(--deal);
+      }
+
+      .household-card .card-label {
+        color: var(--household);
+      }
+
+      .parking-card .card-label {
+        color: var(--parking);
+      }
+
+      .card-value {
+        margin: 0;
+        color: #0b261d;
+        font-size: 19px;
+        line-height: 1.15;
+        font-weight: 900;
+        letter-spacing: -0.055em;
+      }
+
+      .card-value small {
+        margin-left: 2px;
+        font-size: 10px;
+        letter-spacing: -0.02em;
+      }
+
+      .deal-price {
+        margin: 14px 0 0;
+        color: #39160b;
+        font-size: 21px;
+        line-height: 1.05;
+        font-weight: 950;
+        letter-spacing: -0.065em;
+      }
+
+      .deal-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin-top: 14px;
+      }
+
+      .deal-fact {
+        min-width: 0;
+        padding: 7px 6px;
+        border-radius: 12px;
+        background: rgba(255, 239, 229, 0.67);
+        color: #573226;
+        font-size: 9px;
+        line-height: 1.15;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .deal-date {
+        margin: 10px 0 0;
+        color: #715d55;
+        font-size: 9px;
+        line-height: 1.2;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .card-sub {
+        margin: 6px 0 0 48px;
+        color: #4f6159;
+        font-size: 10px;
+        line-height: 1.25;
+        font-weight: 720;
+      }
+
+      .chatbot {
+        position: absolute;
+        right: 18px;
+        bottom: 108px;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .chatbot-pill {
+        padding: 9px 13px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.75);
+        color: #17342a;
+        box-shadow: 0 7px 16px rgba(22, 55, 39, 0.12);
+        backdrop-filter: blur(18px);
+        font-size: 10px;
+        font-weight: 800;
+      }
+
+      .mascot-crop {
+        position: relative;
+        width: 70px;
+        height: 68px;
+        flex: 0 0 auto;
+        display: block;
+        overflow: hidden;
+      }
+
+      .mascot-crop img {
+        position: absolute;
+        top: -25px;
+        left: -21px;
+        width: 112px;
+        height: 112px;
+        object-fit: contain;
+      }
+
+      .actions-surface {
+        position: absolute;
+        right: 14px;
+        bottom: max(12px, env(safe-area-inset-bottom));
+        left: 14px;
+        z-index: 8;
+        min-height: 78px;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.66);
+        border-radius: 27px;
+        background: rgba(241, 249, 244, 0.56);
+        box-shadow: 0 13px 30px rgba(18, 69, 45, 0.2);
+        backdrop-filter: blur(24px) saturate(1.2);
+      }
+
+      .bottom-action {
+        min-width: 0;
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 9px;
+        border-radius: 21px;
+        cursor: pointer;
+      }
+
+      .bottom-action:active {
+        transform: scale(0.98);
+      }
+
+      .study-action {
+        border: 0;
+        background: linear-gradient(135deg, rgba(18, 91, 54, 0.96), rgba(8, 58, 38, 0.98));
+        color: white;
+      }
+
+      .report-action {
+        border: 1px solid rgba(128, 79, 208, 0.24);
+        background: linear-gradient(145deg, rgba(252, 250, 255, 0.94), rgba(232, 222, 249, 0.86));
+        color: #43266d;
+      }
+
+      .action-icon {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .study-action .action-icon {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .report-action .action-icon {
+        background: rgba(128, 79, 208, 0.15);
+      }
+
+      .action-copy {
+        min-width: 0;
+        text-align: left;
+      }
+
+      .action-title,
+      .action-meta {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .action-title {
+        font-size: 10px;
+        line-height: 1.3;
+        font-weight: 760;
+      }
+
+      .action-meta {
+        margin-top: 2px;
+        font-size: 13px;
+        line-height: 1.3;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+      }
+
+      .study-action .action-meta {
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .report-action .action-meta {
+        color: rgba(67, 38, 109, 0.84);
+      }
+
+      @media (max-height: 860px) {
+        .identity {
+          top: 96px;
+        }
+
+        .rail {
+          top: 104px;
+          gap: 9px;
+        }
+
+        .deal-card {
+          min-height: 174px;
+        }
+
+        .compact-card {
+          min-height: 82px;
+          padding-top: 14px;
+          padding-bottom: 11px;
+        }
+
+        .chatbot {
+          bottom: 101px;
+        }
+
+        .actions-surface {
+          min-height: 74px;
+        }
+      }
+
+      @media (min-width: 431px) {
+        .phone {
+          border-radius: 38px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="phone" aria-label="아파트 상세 레일형 레이아웃 시안">
+      <img
+        class="background"
+        src="../assets/images/apartments/raemian-oksu-riverzen-layout.png"
+        alt=""
+      />
+      <div class="haze"></div>
+      <div class="image-edge-fade"></div>
+
+      <header class="top-bar">
+        <button class="round-button" type="button" aria-label="뒤로 가기">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+        </button>
+        <div class="top-actions">
+          <button class="round-button" type="button" aria-label="공유하기">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="18" cy="5" r="2.2" />
+              <circle cx="6" cy="12" r="2.2" />
+              <circle cx="18" cy="19" r="2.2" />
+              <path d="m8 11 7.8-4.5M8 13l7.8 4.5" />
+            </svg>
+          </button>
+          <button
+            class="round-button favorite"
+            type="button"
+            aria-label="찜하기"
+            aria-pressed="false"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="identity" aria-labelledby="apartment-name">
+        <h1 class="apartment-name" id="apartment-name">래미안<span>옥수리버젠</span></h1>
+        <div class="meta-list">
+          <div class="meta-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            <span>서울 성동구 매봉길 15</span>
+          </div>
+          <div class="meta-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 21V8l7-5 7 5v13M9 21v-4h6v4M8 10h2M14 10h2M8 13h2M14 13h2" />
+            </svg>
+            <span>총 1,511세대</span>
+          </div>
+          <div class="meta-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M16 3v4M8 3v4M3 10h18" />
+            </svg>
+            <span>2012년 12월 준공</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="rail" aria-label="아파트 핵심 정보">
+        <article class="glass-card deal-card">
+          <div class="card-head">
+            <div class="card-icon" aria-hidden="true">₩</div>
+            <p class="card-label">최근 실거래</p>
+          </div>
+          <p class="deal-price">21억 8,500만원</p>
+          <div class="deal-facts">
+            <span class="deal-fact">전용 59.25㎡</span>
+            <span class="deal-fact">12층</span>
+          </div>
+          <p class="deal-date">2026.06.11 거래</p>
+        </article>
+
+        <article class="glass-card compact-card household-card">
+          <div class="card-head">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="8" cy="8" r="3" />
+                <circle cx="16" cy="8" r="3" />
+                <path d="M3 20v-2a5 5 0 0 1 10 0v2M11 20v-2a5 5 0 0 1 10 0v2" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">단지 규모</p>
+              <p class="card-value">1,511<small>세대</small></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass-card compact-card parking-card">
+          <div class="card-head">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m5 15 1.5-5h11L19 15M4 15h16v4H4zM7 19v2M17 19v2" />
+                <circle cx="7" cy="16.5" r="1" />
+                <circle cx="17" cy="16.5" r="1" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">세대당 주차</p>
+              <p class="card-value">1.19<small>대</small></p>
+            </div>
+          </div>
+        </article>
+      </aside>
+
+      <button class="chatbot" type="button" aria-label="팔방이에게 물어보기">
+        <span class="chatbot-pill">팔방이에게 물어봐요</span>
+        <span class="mascot-crop" aria-hidden="true">
+          <img src="../assets/images/characters/mint-roof-chatbot-mascot.png" alt="" />
+        </span>
+      </button>
+
+      <nav class="actions-surface" aria-label="아파트 관련 화면 이동">
+        <button
+          class="bottom-action study-action"
+          type="button"
+          aria-label="함께 임장하기, 스터디 0개"
+        >
+          <span class="action-icon" aria-hidden="true">♧</span>
+          <span class="action-copy">
+            <span class="action-title">함께 임장하기</span>
+            <strong class="action-meta">스터디 0개</strong>
+          </span>
+        </button>
+        <button
+          class="bottom-action report-action"
+          type="button"
+          aria-label="현장 기록 보기, 리포트 0개"
+        >
+          <span class="action-icon" aria-hidden="true">▤</span>
+          <span class="action-copy">
+            <span class="action-title">현장 기록 보기</span>
+            <strong class="action-meta">리포트 0개</strong>
+          </span>
+        </button>
+      </nav>
+    </main>
+
+    <script>
+      const favoriteButton = document.querySelector('.favorite');
+      favoriteButton?.addEventListener('click', () => {
+        const selected = favoriteButton.classList.toggle('active');
+        favoriteButton.setAttribute('aria-pressed', String(selected));
+        favoriteButton.setAttribute('aria-label', selected ? '찜 해제' : '찜하기');
+      });
+    </script>
+  </body>
+</html>

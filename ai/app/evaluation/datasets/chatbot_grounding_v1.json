@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "name": "chatbot-grounding-v1-synthetic-ko",
+  "cases": [
+    {
+      "id": "report-parking-count",
+      "category": "report",
+      "question": "이 아파트의 세대당 주차 가능 대수는 몇 대인가요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 101,
+          "content": "관리사무소 확인 결과 총 920세대이고 주차면은 1,104면으로, 세대당 주차 가능 대수는 1.2대다.",
+          "sourceAt": "2026-07-01T09:00:00Z",
+          "similarity": 0.93
+        },
+        {
+          "sourceId": 102,
+          "content": "단지 안 어린이 놀이터는 동쪽 출입구 옆에 있다.",
+          "sourceAt": "2026-07-01T09:10:00Z",
+          "similarity": 0.41
+        }
+      ],
+      "webEvidence": [],
+      "requiredAnswerGroups": [["1.2대", "1.2 대"]],
+      "forbiddenAnswerTerms": ["920대", "1,104대"],
+      "acceptableSourceSets": [[1]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "report-elevator-noise",
+      "category": "report",
+      "question": "엘리베이터 소음이 가장 크게 들린 시간은 언제였나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 103,
+          "content": "오후 6시에 지하 주차장을 둘러봤으며 빈 주차면이 여럿 있었다.",
+          "sourceAt": "2026-07-02T09:00:00Z",
+          "similarity": 0.38
+        },
+        {
+          "sourceId": 104,
+          "content": "침실에서 엘리베이터 작동음이 새벽 1시에 가장 크게 들렸다고 기록했다.",
+          "sourceAt": "2026-07-02T09:05:00Z",
+          "similarity": 0.95
+        }
+      ],
+      "webEvidence": [],
+      "requiredAnswerGroups": [["엘리베이터"], ["새벽 1시", "오전 1시"]],
+      "forbiddenAnswerTerms": ["오후 6시"],
+      "acceptableSourceSets": [[2]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "report-living-room-sunlight",
+      "category": "report",
+      "question": "거실에 햇빛이 직접 들어오기 시작한 시각은 언제인가요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 105,
+          "content": "남향 거실에는 오전 9시부터 햇빛이 직접 들어오기 시작했다.",
+          "sourceAt": "2026-07-03T09:00:00Z",
+          "similarity": 0.97
+        },
+        {
+          "sourceId": 106,
+          "content": "주방 창문은 북쪽을 향하고 있어 오후에도 그늘이었다.",
+          "sourceAt": "2026-07-03T09:02:00Z",
+          "similarity": 0.52
+        }
+      ],
+      "webEvidence": [],
+      "requiredAnswerGroups": [["거실"], ["오전 9시", "아침 9시"]],
+      "forbiddenAnswerTerms": ["오후"],
+      "acceptableSourceSets": [[1]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "report-maintenance-fee",
+      "category": "report",
+      "question": "지난 1월 전용 84㎡ 세대의 관리비는 얼마였나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 107,
+          "content": "단지 상가의 세탁소는 매주 월요일에 쉰다.",
+          "sourceAt": "2026-07-04T08:00:00Z",
+          "similarity": 0.31
+        },
+        {
+          "sourceId": 108,
+          "content": "관리비 고지서에서 2026년 1월 전용 84㎡ 세대 관리비가 13만 8천 원으로 확인됐다.",
+          "sourceAt": "2026-07-04T08:03:00Z",
+          "similarity": 0.94
+        }
+      ],
+      "webEvidence": [],
+      "requiredAnswerGroups": [["13만 8천", "138,000", "138000"]],
+      "forbiddenAnswerTerms": ["월요일"],
+      "acceptableSourceSets": [[2]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "web-subway-walk-time",
+      "category": "web",
+      "question": "가장 가까운 지하철역까지 도보로 몇 분 걸리나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 109,
+          "content": "임장 기록에는 지하철역까지의 도보 시간이 측정되어 있지 않다.",
+          "sourceAt": "2026-07-05T08:00:00Z",
+          "similarity": 0.61
+        }
+      ],
+      "webEvidence": [
+        {
+          "title": "도시교통공사 역세권 안내",
+          "snippet": "2026년 7월 지도 경로 기준 해오름아파트 정문에서 새빛역 2번 출구까지 도보 약 7분이다.",
+          "url": "https://example.invalid/transit/saebit",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-06T00:00:00Z"
+        },
+        {
+          "title": "인근 버스 정류장 안내",
+          "snippet": "단지 앞 버스 정류장에는 세 개 노선이 정차한다.",
+          "url": "https://example.invalid/bus/haeoreum",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-06T00:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [["7분", "7 분"], ["2026년 7월"]],
+      "forbiddenAnswerTerms": ["3분", "10분"],
+      "acceptableSourceSets": [[2]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "web-redevelopment-status",
+      "category": "web",
+      "question": "인근 새빛2구역 재개발은 현재 어느 단계인가요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 110,
+          "content": "임장 참여자는 단지 조경 상태가 양호하다고 평가했다.",
+          "sourceAt": "2026-07-07T10:00:00Z",
+          "similarity": 0.24
+        }
+      ],
+      "webEvidence": [
+        {
+          "title": "새빛구청 정비사업 현황",
+          "snippet": "2026년 6월 30일 기준 새빛2구역은 정비구역 지정 단계이며 사업시행인가는 아직 접수되지 않았다.",
+          "url": "https://example.invalid/redevelopment/saebit2",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-07T11:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [["정비구역 지정"], ["2026년 6월"]],
+      "forbiddenAnswerTerms": ["사업시행인가 완료"],
+      "acceptableSourceSets": [[2]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "web-latest-sale-price",
+      "category": "web",
+      "question": "2026년 7월 기준 전용 84㎡의 최근 실거래가는 얼마인가요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [],
+      "webEvidence": [
+        {
+          "title": "2025년 거래 기록",
+          "snippet": "2025년 12월 전용 84㎡가 14억 6천만 원에 거래됐다.",
+          "url": "https://example.invalid/trade/2025",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-08T00:00:00Z"
+        },
+        {
+          "title": "국토 거래 공개 자료",
+          "snippet": "2026년 7월 2일 전용 84㎡의 최근 신고 거래가는 15억 2천만 원이다.",
+          "url": "https://example.invalid/trade/2026-07",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-08T00:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [["15억 2천"], ["2026년 7월"]],
+      "forbiddenAnswerTerms": ["14억 6천"],
+      "acceptableSourceSets": [[2]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "insufficient-school-bus",
+      "category": "insufficient",
+      "question": "단지에서 초등학교까지 통학버스를 운영하나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 111,
+          "content": "단지 남문 앞 횡단보도에는 보행 신호가 설치되어 있다.",
+          "sourceAt": "2026-07-08T08:00:00Z",
+          "similarity": 0.22
+        }
+      ],
+      "webEvidence": [
+        {
+          "title": "인근 초등학교 학사 일정",
+          "snippet": "여름방학은 7월 24일부터 시작한다.",
+          "url": "https://example.invalid/school/calendar",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-08T09:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [],
+      "forbiddenAnswerTerms": [],
+      "acceptableSourceSets": [[]],
+      "requiresRefusal": true
+    },
+    {
+      "id": "insufficient-pet-policy",
+      "category": "insufficient",
+      "question": "이 단지에서 대형견을 키울 수 있나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 112,
+          "content": "단지 쓰레기 배출 시간은 오후 8시부터 오후 11시까지다.",
+          "sourceAt": "2026-07-09T08:00:00Z",
+          "similarity": 0.19
+        }
+      ],
+      "webEvidence": [
+        {
+          "title": "인근 동물병원 진료 시간",
+          "snippet": "새빛동물병원은 평일 오후 7시까지 진료한다.",
+          "url": "https://example.invalid/vet/hours",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-09T09:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [],
+      "forbiddenAnswerTerms": [],
+      "acceptableSourceSets": [[]],
+      "requiresRefusal": true
+    },
+    {
+      "id": "insufficient-rooftop-access",
+      "category": "insufficient",
+      "question": "옥상 정원을 밤에도 이용할 수 있나요?",
+      "profile": {
+        "name": "해오름아파트",
+        "address": "서울시 새빛구 한들로 12",
+        "districtName": "새빛구",
+        "dongName": "한들동",
+        "householdCount": 920,
+        "completionYearMonth": "2018-03",
+        "parkingSpaceCount": 1104
+      },
+      "reportEvidence": [],
+      "webEvidence": [],
+      "requiredAnswerGroups": [],
+      "forbiddenAnswerTerms": [],
+      "acceptableSourceSets": [[]],
+      "requiresRefusal": true
+    },
+    {
+      "id": "profile-completion-date",
+      "category": "profile",
+      "question": "이 아파트는 언제 준공됐나요?",
+      "profile": {
+        "name": "해오름아파트",
+        "address": "서울시 새빛구 한들로 12",
+        "districtName": "새빛구",
+        "dongName": "한들동",
+        "householdCount": 920,
+        "completionYearMonth": "2018-03",
+        "parkingSpaceCount": 1104
+      },
+      "reportEvidence": [],
+      "webEvidence": [],
+      "requiredAnswerGroups": [["2018년 3월", "2018-03"]],
+      "forbiddenAnswerTerms": ["2020"],
+      "acceptableSourceSets": [[]],
+      "requiresRefusal": false
+    },
+    {
+      "id": "mixed-prefer-report-noise",
+      "category": "mixed",
+      "question": "임장 당시 밤에 외부 소음이 있었나요?",
+      "profile": {"name": "해오름아파트"},
+      "reportEvidence": [
+        {
+          "sourceId": 113,
+          "content": "밤 11시 현장 확인 때 남쪽 도로의 오토바이 소음이 침실에서 들렸다.",
+          "sourceAt": "2026-07-10T14:00:00Z",
+          "similarity": 0.96
+        }
+      ],
+      "webEvidence": [
+        {
+          "title": "지역 소음 민원 통계",
+          "snippet": "2025년 한들동 전체에서 교통 소음 민원이 18건 접수됐다.",
+          "url": "https://example.invalid/noise/statistics",
+          "domain": "example.invalid",
+          "retrievedAt": "2026-07-10T15:00:00Z"
+        }
+      ],
+      "requiredAnswerGroups": [["소음"], ["밤 11시", "오후 11시"]],
+      "forbiddenAnswerTerms": ["18건"],
+      "acceptableSourceSets": [[1]],
+      "requiresRefusal": false
+    }
+  ]
+}

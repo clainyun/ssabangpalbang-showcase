@@ -1,0 +1,35 @@
+# Expo prebuild 생성물 (§8.3 — expo prebuild 가 기본으로 삭제·재생성)
+/android
+/ios
+
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+*.hprof
+npm-debug.log*
+
+# FCM
+google-services*.json*
+credentials*.json*
+eas-credentials*.json*
+
+# Android release signing credentials
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+
+# 로컬 환경변수
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.*.example
+
+# Local startup performance troubleshooting notes
+/troubleShooting.md

@@ -1,0 +1,27 @@
+{
+  "policyId": "checklist-selection-v1-official",
+  "models": ["gemini-3.5-flash", "gpt-5.4-nano"],
+  "caseCount": 12,
+  "repetitions": 3,
+  "warmupPerModel": 1,
+  "totalCalls": 74,
+  "seed": 20260811,
+  "minRequestIntervalMs": 6500,
+  "cooldownAfterWarmupSeconds": 60,
+  "shortlistSize": 50,
+  "targetItemCount": 25,
+  "categoryDiversityTarget": 10,
+  "weights": {
+    "operationalPass": 0.30,
+    "priorityAlignment": 0.25,
+    "purposeAlignment": 0.15,
+    "serverScoreNdcg": 0.15,
+    "categoryDiversity": 0.10,
+    "targetCount": 0.05
+  },
+  "catalogSha256": "29aafff27d8b2b8ed5e5480195ca143830bee55acfa2b0a0e3066ba365db92d4",
+  "datasetSha256": "35c2f3d2955064846b97005fd7c5ba1a67512470127cff70a090471be7072056",
+  "promptManifestSha256": "dcf18ba06c565876ee2409ab7d4f2c159253aecba9164d9df31cbd6a4f04ddb5",
+  "responseSchemaSha256": "d65ab8de346487551fe945b452ba5926b8aaa9dda9e79212bd649e25ec8714fe",
+  "evaluatorSha256": "1d4633f28da66aa7519088d36a1a0049c96b14c32dc6114172bebd05cbafe74b"
+}

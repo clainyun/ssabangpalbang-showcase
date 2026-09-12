@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 3,
+  "name": "chatbot-grounding-production-fit-v3",
+  "cases": [
+    {
+      "id": "direct-report-01", "category": "direct_report", "question": "전용면적 84㎡의 최근 전세가율은 얼마인가요?",
+      "reportEvidence": [{"sourceId": 101, "content": "전용 84㎡의 최근 전세가율은 67.4%이다.", "similarity": 0.96}, {"sourceId": 102, "content": "전용 59㎡의 전세가율은 71.0%이다.", "similarity": 0.80}], "webEvidence": [],
+      "factRubric": {"factGroups": [["67.4%", "67.4퍼센트"]], "forbiddenTerms": ["71.0%", "71퍼센트"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    },
+    {
+      "id": "direct-report-02", "category": "direct_report", "question": "2025년 4분기 평균 매매가는 얼마인가요?",
+      "reportEvidence": [{"sourceId": 103, "content": "2025년 3분기 평균 매매가는 9억 2천만원이다.", "similarity": 0.78}, {"sourceId": 104, "content": "2025년 4분기 평균 매매가는 9억 8천만원이다.", "similarity": 0.97}], "webEvidence": [],
+      "factRubric": {"factGroups": [["9억 8천", "9억8천", "980,000,000", "980000000"]], "forbiddenTerms": ["9억 2천", "9억2천"]}, "refusalRubric": null, "acceptableSourceSets": [[2]], "longContextChars": null
+    },
+    {
+      "id": "direct-report-03", "category": "direct_report", "question": "주차 가능 대수는 몇 대인가요?",
+      "reportEvidence": [{"sourceId": 105, "content": "방문 차량 등록 절차는 관리사무소에서 안내한다.", "similarity": 0.72}, {"sourceId": 106, "content": "전체 주차 가능 대수는 1,248대이다.", "similarity": 0.95}], "webEvidence": [],
+      "factRubric": {"factGroups": [["1,248", "1248"]], "forbiddenTerms": ["920대"]}, "refusalRubric": null, "acceptableSourceSets": [[2]], "longContextChars": null
+    },
+    {
+      "id": "direct-report-04", "category": "direct_report", "question": "용적률은 얼마인가요?",
+      "reportEvidence": [{"sourceId": 107, "content": "건폐율은 18.2%이다.", "similarity": 0.81}, {"sourceId": 108, "content": "용적률은 227.6%이다.", "similarity": 0.98}], "webEvidence": [],
+      "factRubric": {"factGroups": [["227.6%", "227.6퍼센트"]], "forbiddenTerms": ["18.2%"]}, "refusalRubric": null, "acceptableSourceSets": [[2]], "longContextChars": null
+    },
+    {
+      "id": "long-report-8k-first", "category": "long_report", "question": "장기수선계획상 승강기 교체 예정 연도는 언제인가요?",
+      "reportEvidence": [{"sourceId": 201, "content": "승강기 전면 교체 예정 연도는 2031년이다.", "similarity": 0.94}, {"sourceId": 202, "content": "관리 공지와 일반 안내가 이어진다. ", "repeatToChars": 8000, "similarity": 0.70}, {"sourceId": 203, "content": "옥상 방수 점검은 매년 실시한다.", "similarity": 0.68}], "webEvidence": [],
+      "factRubric": {"factGroups": [["2031년", "2031"]], "forbiddenTerms": ["2030년", "2032년"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": 8000
+    },
+    {
+      "id": "long-report-8k-middle", "category": "long_report", "question": "어린이집 정원은 몇 명인가요?",
+      "reportEvidence": [{"sourceId": 204, "content": "시설 점검 기록과 운영 일반사항이다. ", "repeatToChars": 4000, "similarity": 0.69}, {"sourceId": 205, "content": "단지 어린이집의 인가 정원은 73명이다.", "similarity": 0.96}, {"sourceId": 206, "content": "경로당과 주민시설 운영 일반사항이다. ", "repeatToChars": 4000, "similarity": 0.65}], "webEvidence": [],
+      "factRubric": {"factGroups": [["73명", "73 명"]], "forbiddenTerms": ["70명", "75명"]}, "refusalRubric": null, "acceptableSourceSets": [[2]], "longContextChars": 8000
+    },
+    {
+      "id": "long-report-20k-last", "category": "long_report", "question": "최근 외벽 도장 완료 월은 언제인가요?",
+      "reportEvidence": [{"sourceId": 207, "content": "공용부 유지관리 일반 기록이다. ", "repeatToChars": 10000, "similarity": 0.66}, {"sourceId": 208, "content": "안전점검과 입주 안내 기록이다. ", "repeatToChars": 10000, "similarity": 0.64}, {"sourceId": 209, "content": "외벽 도장은 2024년 11월에 완료되었다.", "similarity": 0.97}], "webEvidence": [],
+      "factRubric": {"factGroups": [["2024년 11월", "2024.11"]], "forbiddenTerms": ["2024년 10월", "2025년"]}, "refusalRubric": null, "acceptableSourceSets": [[3]], "longContextChars": 20000
+    },
+    {
+      "id": "long-report-20k-first", "category": "long_report", "question": "지하주차장 LED 교체율은 얼마인가요?",
+      "reportEvidence": [{"sourceId": 210, "content": "지하주차장 LED 교체율은 92.5%이다.", "similarity": 0.98}, {"sourceId": 211, "content": "전기 설비 점검 및 관리 일반 기록이다. ", "repeatToChars": 10000, "similarity": 0.67}, {"sourceId": 212, "content": "공용 조명 운영 안내 기록이다. ", "repeatToChars": 10000, "similarity": 0.65}], "webEvidence": [],
+      "factRubric": {"factGroups": [["92.5%", "92.5퍼센트"]], "forbiddenTerms": ["90%", "95%"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": 20000
+    },
+    {
+      "id": "long-report-29k-middle", "category": "long_report", "question": "세대당 월평균 수도 사용량은 얼마인가요?",
+      "reportEvidence": [{"sourceId": 213, "content": "관리비와 시설 운영 일반 기록이다. ", "repeatToChars": 14500, "similarity": 0.65}, {"sourceId": 214, "content": "세대당 월평균 수도 사용량은 18.7톤이다.", "similarity": 0.97}, {"sourceId": 215, "content": "검침 및 공용 설비 안내 기록이다. ", "repeatToChars": 14500, "similarity": 0.64}], "webEvidence": [],
+      "factRubric": {"factGroups": [["18.7톤", "18.7 톤"]], "forbiddenTerms": ["17.8톤", "19.0톤"]}, "refusalRubric": null, "acceptableSourceSets": [[2]], "longContextChars": 29000
+    },
+    {
+      "id": "long-report-29k-last", "category": "long_report", "question": "재활용품 분리수거 요일은 언제인가요?",
+      "reportEvidence": [{"sourceId": 216, "content": "생활 안내와 관리 규정 일반 내용이다. ", "repeatToChars": 14500, "similarity": 0.66}, {"sourceId": 217, "content": "시설 이용과 민원 처리 일반 내용이다. ", "repeatToChars": 14500, "similarity": 0.63}, {"sourceId": 218, "content": "재활용품 분리수거는 매주 화요일과 금요일이다.", "similarity": 0.98}], "webEvidence": [],
+      "factRubric": {"factGroups": [["화요일", "화요"], ["금요일", "금요"]], "forbiddenTerms": ["월요일", "목요일"]}, "refusalRubric": null, "acceptableSourceSets": [[3]], "longContextChars": 29000
+    },
+    {
+      "id": "web-01", "category": "web", "question": "가장 가까운 지하철역의 첫차 시간은 언제인가요?", "reportEvidence": [],
+      "webEvidence": [{"title": "교통공사 역 정보", "snippet": "평일 상행 첫차는 오전 5시 32분이다.", "url": "https://example.invalid/subway", "domain": "example.invalid", "retrievedAt": "2026-08-01T00:00:00Z"}],
+      "factRubric": {"factGroups": [["5시 32분", "05:32", "5:32"]], "forbiddenTerms": ["5시 20분"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    },
+    {
+      "id": "web-02", "category": "web", "question": "구청의 대형폐기물 온라인 신고 수수료는 얼마인가요?", "reportEvidence": [],
+      "webEvidence": [{"title": "구청 대형폐기물 안내", "snippet": "의자 1개 온라인 신고 수수료는 3,000원이다.", "url": "https://example.invalid/waste", "domain": "example.invalid", "retrievedAt": "2026-08-01T00:00:00Z"}, {"title": "일반 쓰레기 안내", "snippet": "종량제 봉투 가격 안내이다.", "url": "https://example.invalid/bag", "domain": "example.invalid", "retrievedAt": "2026-08-01T00:00:00Z"}],
+      "factRubric": {"factGroups": [["3,000원", "3000원"]], "forbiddenTerms": ["5,000원"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    },
+    {
+      "id": "web-03", "category": "web", "question": "인근 도서관의 일요일 운영 종료 시간은 언제인가요?", "reportEvidence": [],
+      "webEvidence": [{"title": "도서관 이용시간", "snippet": "일요일 자료실은 오후 5시에 운영을 종료한다.", "url": "https://example.invalid/library", "domain": "example.invalid", "retrievedAt": "2026-08-01T00:00:00Z"}],
+      "factRubric": {"factGroups": [["오후 5시", "17시", "17:00"]], "forbiddenTerms": ["오후 6시", "18시"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    },
+    {
+      "id": "insufficient-01", "category": "insufficient", "question": "내년 아파트 매매가는 정확히 얼마가 되나요?",
+      "reportEvidence": [{"sourceId": 301, "content": "최근 실거래가는 변동될 수 있으며 미래 가격을 보장하지 않는다.", "similarity": 0.60}], "webEvidence": [], "factRubric": null,
+      "refusalRubric": {"markers": ["확인할 수 없", "예측할 수 없", "근거가 부족", "알 수 없"], "forbiddenClaims": ["10억원", "11억원", "상승합니다", "하락합니다"]}, "acceptableSourceSets": [[]], "longContextChars": null
+    },
+    {
+      "id": "insufficient-02", "category": "insufficient", "question": "현재 관리사무소장의 개인 휴대전화 번호를 알려주세요.",
+      "reportEvidence": [{"sourceId": 302, "content": "관리사무소 대표번호는 별도 공식 안내에서 확인한다.", "similarity": 0.55}], "webEvidence": [], "factRubric": null,
+      "refusalRubric": {"markers": ["확인할 수 없", "제공할 수 없", "정보가 없", "알 수 없"], "forbiddenClaims": ["010-"]}, "acceptableSourceSets": [[]], "longContextChars": null
+    },
+    {
+      "id": "insufficient-03", "category": "insufficient", "question": "지난주 특정 세대의 관리비 연체액을 알려주세요.", "reportEvidence": [],
+      "webEvidence": [{"title": "일반 관리비 안내", "snippet": "개별 세대 연체 정보는 공개 자료에 포함되지 않는다.", "url": "https://example.invalid/fees", "domain": "example.invalid", "retrievedAt": "2026-08-01T00:00:00Z"}], "factRubric": null,
+      "refusalRubric": {"markers": ["확인할 수 없", "제공할 수 없", "정보가 없", "알 수 없"], "forbiddenClaims": ["만원", "원입니다"]}, "acceptableSourceSets": [[]], "longContextChars": null
+    },
+    {
+      "id": "profile-01", "category": "profile", "question": "이 아파트의 세대수는 몇 세대인가요?", "profile": {"name": "새빛마을", "address": "서울시 예시구", "householdCount": 1280, "completionYearMonth": "201803", "parkingSpaceCount": 1510},
+      "reportEvidence": [], "webEvidence": [], "factRubric": {"factGroups": [["1,280", "1280"]], "forbiddenTerms": ["1,510", "1510"]}, "refusalRubric": null, "acceptableSourceSets": [[]], "longContextChars": null
+    },
+    {
+      "id": "profile-02", "category": "profile", "question": "이 아파트의 준공 연월은 언제인가요?", "profile": {"name": "푸른언덕", "address": "서울시 예시구", "householdCount": 840, "completionYearMonth": "202109", "parkingSpaceCount": 990},
+      "reportEvidence": [], "webEvidence": [], "factRubric": {"factGroups": [["2021년 9월", "2021.09", "202109"]], "forbiddenTerms": ["2020년"]}, "refusalRubric": null, "acceptableSourceSets": [[]], "longContextChars": null
+    },
+    {
+      "id": "mixed-report-priority-01", "category": "mixed", "question": "단지 셔틀버스의 평일 첫 출발 시간은 언제인가요?",
+      "reportEvidence": [{"sourceId": 401, "content": "단지 공식 운영표상 평일 첫 셔틀은 오전 7시 10분에 출발한다.", "similarity": 0.98}], "webEvidence": [{"title": "과거 커뮤니티 글", "snippet": "예전 셔틀 첫 출발은 오전 7시 30분이었다.", "url": "https://example.invalid/old-shuttle", "domain": "example.invalid", "retrievedAt": "2026-07-01T00:00:00Z"}],
+      "factRubric": {"factGroups": [["7시 10분", "07:10", "7:10"]], "forbiddenTerms": ["7시 30분", "07:30"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    },
+    {
+      "id": "mixed-report-priority-02", "category": "mixed", "question": "게스트하우스 1박 이용료는 얼마인가요?",
+      "reportEvidence": [{"sourceId": 402, "content": "최신 단지 운영규정의 게스트하우스 1박 이용료는 45,000원이다.", "similarity": 0.97}], "webEvidence": [{"title": "지역 블로그", "snippet": "과거 이용 후기에 1박 40,000원으로 적혀 있다.", "url": "https://example.invalid/guest-old", "domain": "example.invalid", "retrievedAt": "2026-06-01T00:00:00Z"}],
+      "factRubric": {"factGroups": [["45,000원", "45000원"]], "forbiddenTerms": ["40,000원", "40000원"]}, "refusalRubric": null, "acceptableSourceSets": [[1]], "longContextChars": null
+    }
+  ]
+}

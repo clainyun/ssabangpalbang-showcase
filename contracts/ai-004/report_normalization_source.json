@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "reportId": 48,
+  "studyId": 7,
+  "apartmentId": 15,
+  "fieldSessionId": 900,
+  "sessionStatus": "ENDED",
+  "sessionStartedAt": "2026-07-20T14:00:00+09:00",
+  "sessionEndedAt": "2026-07-20T16:00:00+09:00",
+  "snapshotAt": "2026-07-20T16:05:00+09:00",
+  "participants": [
+    {
+      "fieldParticipantId": 72,
+      "memberId": 8,
+      "status": "ENDED",
+      "startedAt": "2026-07-20T14:02:00+09:00",
+      "endedAt": "2026-07-20T15:58:00+09:00"
+    },
+    {
+      "fieldParticipantId": 71,
+      "memberId": 7,
+      "status": "ENDED",
+      "startedAt": "2026-07-20T14:00:00+09:00",
+      "endedAt": "2026-07-20T16:00:00+09:00"
+    }
+  ],
+  "checklistItems": [
+    {
+      "checklistId": 56,
+      "checklistItemId": 509,
+      "memberId": 8,
+      "fallback": false,
+      "category": "소음",
+      "title": "시간대별 소음",
+      "subtitle": null,
+      "displayOrder": 2,
+      "completed": true,
+      "completedAt": null
+    },
+    {
+      "checklistId": 55,
+      "checklistItemId": 503,
+      "memberId": 7,
+      "fallback": false,
+      "category": "단지환경",
+      "title": "단지 진입 동선",
+      "subtitle": "보행 동선을 사진으로 기록해 주세요.",
+      "displayOrder": 2,
+      "completed": false,
+      "completedAt": null
+    },
+    {
+      "checklistId": 55,
+      "checklistItemId": 501,
+      "memberId": 7,
+      "fallback": false,
+      "category": "교통",
+      "title": "지하철역 접근성",
+      "subtitle": "단지 출입구에서 승강장까지 실제 소요 시간을 확인해 주세요.",
+      "displayOrder": 1,
+      "completed": true,
+      "completedAt": "2026-07-20T14:35:00+09:00"
+    }
+  ],
+  "authoritativeSourceIds": [
+    201,
+    214,
+    228,
+    240,
+    242,
+    243
+  ],
+  "fieldRecords": [
+    {
+      "sourceId": 228,
+      "sessionId": 900,
+      "checklistItemId": 509,
+      "authorId": 8,
+      "sourceType": "STT",
+      "textContent": "  차량 소음은 크지 않지만 출퇴근 시간에는 다시 확인할 필요가 있습니다.  ",
+      "sttStatus": "DONE",
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T15:05:00+09:00",
+      "updatedAt": "2026-07-20T15:06:00+09:00"
+    },
+    {
+      "sourceId": 201,
+      "sessionId": 900,
+      "checklistItemId": 501,
+      "authorId": 7,
+      "sourceType": "TEXT",
+      "textContent": "  현관에서 지하철역 입구까지 걸어서 약 8분이 걸립니다.  ",
+      "sttStatus": null,
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T14:30:00+09:00",
+      "updatedAt": "2026-07-20T14:31:00+09:00"
+    },
+    {
+      "sourceId": 214,
+      "sessionId": 900,
+      "checklistItemId": 503,
+      "authorId": 7,
+      "sourceType": "PHOTO",
+      "textContent": null,
+      "sttStatus": null,
+      "photoFile": {
+        "fileId": 301,
+        "contentType": "image/jpeg",
+        "sizeBytes": 1852034,
+        "uploadStatus": "COMPLETED",
+        "expiresAt": "2026-07-20T17:00:00+09:00",
+        "deletedAt": null
+      },
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T14:45:00+09:00",
+      "updatedAt": "2026-07-20T14:46:00+09:00"
+    },
+    {
+      "sourceId": 201,
+      "sessionId": 900,
+      "checklistItemId": 501,
+      "authorId": 7,
+      "sourceType": "TEXT",
+      "textContent": "  현관에서 지하철역 입구까지 걸어서 약 8분이 걸립니다.  ",
+      "sttStatus": null,
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T14:30:00+09:00",
+      "updatedAt": "2026-07-20T14:31:00+09:00"
+    },
+    {
+      "sourceId": 240,
+      "sessionId": 900,
+      "checklistItemId": 501,
+      "authorId": 7,
+      "sourceType": "TEXT",
+      "textContent": "   ",
+      "sttStatus": null,
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T15:10:00+09:00",
+      "updatedAt": "2026-07-20T15:10:00+09:00"
+    },
+    {
+      "sourceId": 242,
+      "sessionId": 900,
+      "checklistItemId": 509,
+      "authorId": 8,
+      "sourceType": "STT",
+      "textContent": null,
+      "sttStatus": "PROCESSING",
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T15:12:00+09:00",
+      "updatedAt": "2026-07-20T15:12:00+09:00"
+    },
+    {
+      "sourceId": 243,
+      "sessionId": 900,
+      "checklistItemId": 503,
+      "authorId": 7,
+      "sourceType": "PHOTO",
+      "textContent": null,
+      "sttStatus": null,
+      "photoFile": null,
+      "deletedAt": null,
+      "recordedAt": "2026-07-20T15:15:00+09:00",
+      "updatedAt": "2026-07-20T15:15:00+09:00"
+    }
+  ],
+  "incompleteSttJobs": [
+    {
+      "sttId": "stt-pending-1",
+      "memberId": 8,
+      "checklistItemId": 509,
+      "status": "PENDING",
+      "retryable": true,
+      "failCode": null,
+      "requestedAt": "2026-07-20T15:20:00+09:00"
+    },
+    {
+      "sttId": "stt-done-missing-1",
+      "memberId": 7,
+      "checklistItemId": 501,
+      "status": "DONE",
+      "retryable": false,
+      "failCode": null,
+      "requestedAt": "2026-07-20T15:18:00+09:00"
+    }
+  ]
+}

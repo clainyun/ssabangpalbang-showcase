@@ -1,0 +1,48 @@
+# 최상위 EditorConfig 파일
+root = true
+
+# 공통 설정
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Java 및 Kotlin
+[*.{java,kt}]
+indent_size = 4
+
+# Gradle
+[*.{gradle,kts}]
+indent_size = 4
+
+# Python
+[*.py]
+indent_size = 4
+
+# YAML
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON
+[*.json]
+indent_size = 2
+
+# SQL
+[*.sql]
+indent_size = 4
+
+# Shell Script
+[*.sh]
+indent_size = 2
+
+# Windows Script
+[*.{bat,cmd}]
+end_of_line = crlf
+indent_size = 4
+
+# Markdown은 줄 끝 공백이 문법으로 사용될 수 있음
+[*.md]
+trim_trailing_whitespace = false

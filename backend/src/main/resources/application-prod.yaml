@@ -1,0 +1,90 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    baseline-on-migrate: false
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      connection-timeout: 30000
+
+  jpa:
+    open-in-view: false
+
+    hibernate:
+      ddl-auto: none
+
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: Asia/Seoul
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+      timeout: 2s
+
+  # 비밀번호 재설정 코드 발송용 SMTP 설정.
+  # host에 실제 값이 채워져야 SmtpEmailSender가 정상 발송한다. 실제 host/port/username/password는
+  # 코드가 아니라 배포 환경 시크릿(infra/.env.prod)으로 주입한다.
+  # ⚠️ 배포 전 반드시 .env.prod에 MAIL_HOST/MAIL_USERNAME/MAIL_PASSWORD를 먼저 채울 것.
+  #    (host가 빈 값이면 발송 시도가 실패 로그로 남는다 — 메일 미발송은 동일. health는 아래에서 분리.)
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+
+    admin:
+      fail-fast: true
+
+    producer:
+      acks: all
+
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+
+server:
+  forward-headers-strategy: framework
+
+management:
+  endpoint:
+    health:
+      show-details: never
+  health:
+    # SMTP(mail) 헬스 인디케이터를 끈다. 켜 두면 /actuator/health(컨테이너 헬스체크 대상)가
+    # 매 폴링마다 SMTP 서버로 connect 를 시도해, 메일 미설정·SMTP 일시 장애 시 health 가 DOWN 이
+    # 되어 컨테이너가 unhealthy 로 재시작될 수 있다. 메일 발송 실패는 비동기로 이미 안전하게
+    # 처리되므로 health 와 분리한다.
+    mail:
+      enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.ssafy.ssabangpalbang: INFO

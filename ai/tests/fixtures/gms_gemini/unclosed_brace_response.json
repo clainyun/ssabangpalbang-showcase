@@ -1,0 +1,14 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "{\"answer\":\"제공된 정보로는 반포자이의 위치를 확인할 수 없습니다.\",\"usedSources\":[]"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ]
+}

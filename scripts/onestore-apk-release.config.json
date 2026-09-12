@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "binaryType": "APK",
+  "applicationId": "com.ssafy.ssabangpalbang",
+  "artifactBaseName": "ssabangpalbang",
+  "minimumVersionCodeExclusive": 18,
+  "minimumMinSdk": 24,
+  "minimumTargetSdk": 36,
+  "maximumBytesExclusive": 2147483648,
+  "requiredSignerCount": 1,
+  "requireV2OrNewerSignature": true,
+  "requireNonDebug": true,
+  "allowedCertificateSha256": [
+    "dd259fbd1bdba0bef81a24cf0a5d176e1ee12f00238441cedf0aa1a0a70adf77"
+  ]
+}

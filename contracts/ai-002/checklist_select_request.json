@@ -1,0 +1,408 @@
+{
+  "selectionVersion": "v3-select-1",
+  "targetItemCount": 25,
+  "mappedPurpose": "LIVE",
+  "selectedPriorities": [
+    "TRANSPORTATION",
+    "SAFETY"
+  ],
+  "shortlist": [
+    {
+      "itemCode": "PED_018",
+      "categoryCode": "PED",
+      "title": "단지 안 보행 연속성",
+      "priorityTags": [
+        "WALKABILITY",
+        "SAFETY",
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "WALK",
+        "CHILD",
+        "ELDERLY",
+        "STROLLER",
+        "SAFETY"
+      ],
+      "serverScore": 200,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "ENV_001",
+      "categoryCode": "ENV",
+      "title": "외부와 단지 안 소음 차이",
+      "priorityTags": [
+        "NOISE"
+      ],
+      "conditionTags": [
+        "QUIET",
+        "LIVE",
+        "INVEST"
+      ],
+      "serverScore": 199,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "SUM_001",
+      "categoryCode": "SUM",
+      "title": "가장 큰 장점",
+      "priorityTags": [
+        "TRANSPORTATION",
+        "SAFETY",
+        "EDUCATION",
+        "CONVENIENCE",
+        "WALKABILITY",
+        "GREEN_SPACE",
+        "PARKING",
+        "NOISE"
+      ],
+      "conditionTags": [
+        "ALL"
+      ],
+      "serverScore": 198,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "SUM_002",
+      "categoryCode": "SUM",
+      "title": "가장 큰 우려",
+      "priorityTags": [
+        "TRANSPORTATION",
+        "SAFETY",
+        "EDUCATION",
+        "CONVENIENCE",
+        "WALKABILITY",
+        "GREEN_SPACE",
+        "PARKING",
+        "NOISE"
+      ],
+      "conditionTags": [
+        "ALL"
+      ],
+      "serverScore": 197,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "TRN_001",
+      "categoryCode": "TRN",
+      "title": "역까지 실제 도보 시간",
+      "priorityTags": [
+        "TRANSPORTATION"
+      ],
+      "conditionTags": [
+        "TRANSIT",
+        "COMMUTE"
+      ],
+      "serverScore": 196,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "TRN_002",
+      "categoryCode": "TRN",
+      "title": "승강장까지 추가 이동 시간",
+      "priorityTags": [
+        "TRANSPORTATION"
+      ],
+      "conditionTags": [
+        "TRANSIT",
+        "COMMUTE"
+      ],
+      "serverScore": 195,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "TRN_003",
+      "categoryCode": "TRN",
+      "title": "역 접근 편의",
+      "priorityTags": [
+        "TRANSPORTATION",
+        "WALKABILITY"
+      ],
+      "conditionTags": [
+        "TRANSIT",
+        "STROLLER",
+        "ELDERLY",
+        "WHEELCHAIR",
+        "ACCESSIBILITY"
+      ],
+      "serverScore": 194,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "SAF_001",
+      "categoryCode": "SAF",
+      "title": "CCTV와 가로등 배치",
+      "priorityTags": [
+        "SAFETY",
+        "WALKABILITY"
+      ],
+      "conditionTags": [
+        "SAFETY",
+        "SINGLE",
+        "CHILD",
+        "ELDERLY"
+      ],
+      "serverScore": 193,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "EXT_001",
+      "categoryCode": "EXT",
+      "title": "출입구 이용 편의",
+      "priorityTags": [
+        "WALKABILITY",
+        "TRANSPORTATION",
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE",
+        "INVEST",
+        "LEARN"
+      ],
+      "serverScore": 192,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "EXT_003",
+      "categoryCode": "EXT",
+      "title": "차량·보행 출입 분리",
+      "priorityTags": [
+        "SAFETY",
+        "WALKABILITY",
+        "PARKING"
+      ],
+      "conditionTags": [
+        "SAFETY",
+        "CHILD",
+        "ELDERLY",
+        "CAR"
+      ],
+      "serverScore": 191,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "GRN_001",
+      "categoryCode": "GRN",
+      "title": "공원까지 실제 도보 시간",
+      "priorityTags": [
+        "GREEN_SPACE",
+        "WALKABILITY"
+      ],
+      "conditionTags": [
+        "PARK",
+        "CHILD",
+        "ELDERLY",
+        "PET"
+      ],
+      "serverScore": 190,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "CON_001",
+      "categoryCode": "CON",
+      "title": "편의점 실제 거리",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "CONVENIENCE",
+        "SINGLE",
+        "ELDERLY"
+      ],
+      "serverScore": 189,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "BLD_001",
+      "categoryCode": "BLD",
+      "title": "동·층별 채광과 향",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE",
+        "INVEST"
+      ],
+      "serverScore": 188,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "BLD_002",
+      "categoryCode": "BLD",
+      "title": "엘리베이터 대수와 대기",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE"
+      ],
+      "serverScore": 187,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "COM_001",
+      "categoryCode": "COM",
+      "title": "생활 편의시설 접근성",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "CONVENIENCE",
+        "LIVE"
+      ],
+      "serverScore": 186,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "COM_002",
+      "categoryCode": "COM",
+      "title": "대형마트·상권 규모",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "CONVENIENCE"
+      ],
+      "serverScore": 185,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "EDU_001",
+      "categoryCode": "EDU",
+      "title": "초등학교 통학 안전",
+      "priorityTags": [
+        "EDUCATION",
+        "SAFETY"
+      ],
+      "conditionTags": [
+        "CHILD",
+        "SAFETY"
+      ],
+      "serverScore": 184,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "EDU_002",
+      "categoryCode": "EDU",
+      "title": "학원가 접근성",
+      "priorityTags": [
+        "EDUCATION"
+      ],
+      "conditionTags": [
+        "CHILD",
+        "TEEN"
+      ],
+      "serverScore": 183,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "MGT_001",
+      "categoryCode": "MGT",
+      "title": "관리 상태와 청결",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE",
+        "INVEST"
+      ],
+      "serverScore": 182,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "MGT_002",
+      "categoryCode": "MGT",
+      "title": "관리비 수준",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE",
+        "INVEST"
+      ],
+      "serverScore": 181,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "PRK_001",
+      "categoryCode": "PRK",
+      "title": "세대당 주차 대수",
+      "priorityTags": [
+        "PARKING"
+      ],
+      "conditionTags": [
+        "CAR",
+        "PARKING"
+      ],
+      "serverScore": 180,
+      "isCommonCore": true
+    },
+    {
+      "itemCode": "PRK_002",
+      "categoryCode": "PRK",
+      "title": "방문 주차 여건",
+      "priorityTags": [
+        "PARKING"
+      ],
+      "conditionTags": [
+        "CAR",
+        "PARKING"
+      ],
+      "serverScore": 179,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "UNT_001",
+      "categoryCode": "UNT",
+      "title": "세대 내부 채광",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE"
+      ],
+      "serverScore": 178,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "UNT_002",
+      "categoryCode": "UNT",
+      "title": "수납 공간",
+      "priorityTags": [
+        "CONVENIENCE"
+      ],
+      "conditionTags": [
+        "LIVE"
+      ],
+      "serverScore": 177,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "ENV_002",
+      "categoryCode": "ENV",
+      "title": "일조·통풍 환경",
+      "priorityTags": [
+        "NOISE"
+      ],
+      "conditionTags": [
+        "LIVE"
+      ],
+      "serverScore": 176,
+      "isCommonCore": false
+    },
+    {
+      "itemCode": "GRN_002",
+      "categoryCode": "GRN",
+      "title": "단지 내 조경과 녹지",
+      "priorityTags": [
+        "GREEN_SPACE"
+      ],
+      "conditionTags": [
+        "PARK",
+        "CHILD",
+        "PET"
+      ],
+      "serverScore": 175,
+      "isCommonCore": false
+    }
+  ]
+}

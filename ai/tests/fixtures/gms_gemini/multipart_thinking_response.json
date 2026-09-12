@@ -1,0 +1,24 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "thought": true,
+            "text": "사용자는 주차 여건을 묻고 있다."
+          },
+          {
+            "thoughtSignature": "test-signature"
+          },
+          {
+            "text": "{\"answer\":\"주차 여건은 리포트에서 확인됩니다.\","
+          },
+          {
+            "text": "\"usedSources\":[1]}"
+          }
+        ]
+      },
+      "finishReason": "STOP"
+    }
+  ]
+}

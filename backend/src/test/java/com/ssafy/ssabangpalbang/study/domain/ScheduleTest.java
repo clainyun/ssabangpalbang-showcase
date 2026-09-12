@@ -1,0 +1,3 @@
+package com.ssafy.ssabangpalbang.study.domain;
+import org.junit.jupiter.api.Test; import java.time.Instant; import static org.assertj.core.api.Assertions.assertThat;
+class ScheduleTest { @Test void createsUpdatesCancelsAndReactivates(){Instant a=Instant.parse("2026-08-15T00:00:00Z"),b=Instant.parse("2026-08-15T03:00:00Z");Schedule s=Schedule.create(10L,a,b,"A");assertThat(s.getStatus()).isEqualTo(ScheduleStatus.SCHEDULED);s.update(null,null,"B");assertThat(s.getStartAt()).isEqualTo(a);assertThat(s.getMeetingPlace()).isEqualTo("B");s.cancel();assertThat(s.getStatus()).isEqualTo(ScheduleStatus.CANCELED);s.reactivate(b,null,"C");assertThat(s.getStatus()).isEqualTo(ScheduleStatus.SCHEDULED);assertThat(s.getMeetingPlace()).isEqualTo("C");}}

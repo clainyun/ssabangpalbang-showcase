@@ -1,0 +1,1 @@
+"""Apartment RAG indexing utilities."""

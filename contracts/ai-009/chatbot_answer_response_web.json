@@ -1,0 +1,18 @@
+{
+  "basisType": "WEB",
+  "basisLabel": "웹 기반",
+  "answer": "공개 자료 기준으로 옥수역까지 도보 10분 내외로 안내되고 있습니다. 시세와 교통 정보는 조사 시점에 따라 달라질 수 있습니다.",
+  "sources": [
+    {
+      "sourceType": "WEB",
+      "sourceId": null,
+      "reportId": null,
+      "title": "래미안 옥수 리버젠 단지 정보",
+      "sectionLabel": null,
+      "url": "https://example.com/apartments/remian-oksu",
+      "sourceAt": "2026-07-31T12:00:00+00:00"
+    }
+  ],
+  "topSimilarity": 0.31,
+  "fallbackToWeb": false
+}

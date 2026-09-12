@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>싸방팔방 임장 리포트</title>
+    <meta
+      name="description"
+      content="싸방팔방 앱에서 함께 만든 임장 리포트를 확인해 보세요."
+    />
+    <link rel="canonical" href="__REPORT_URL__" />
+    <link rel="manifest" href="/share/report.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="싸방팔방" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content="싸방팔방 임장 리포트" />
+    <meta
+      property="og:description"
+      content="싸방팔방 앱에서 함께 만든 임장 리포트를 확인해 보세요."
+    />
+    <meta property="og:url" content="__REPORT_URL__" />
+    <meta
+      property="og:image"
+      content="https://portfolio.example.com/share/report-card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://portfolio.example.com/share/report-card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="2172" />
+    <meta property="og:image:height" content="724" />
+    <meta property="og:image:alt" content="싸방팔방 로고" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="싸방팔방 임장 리포트" />
+    <meta
+      name="twitter:description"
+      content="싸방팔방 앱에서 함께 만든 임장 리포트를 확인해 보세요."
+    />
+    <meta
+      name="twitter:image"
+      content="https://portfolio.example.com/share/report-card.png"
+    />
+
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Pretendard,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: #f4f7f6;
+        color: #111827;
+      }
+
+      body {
+        box-sizing: border-box;
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        padding: 24px;
+        place-items: center;
+      }
+
+      main {
+        box-sizing: border-box;
+        width: min(100%, 480px);
+        padding: 40px 28px;
+        border: 1px solid #e5e7eb;
+        border-radius: 24px;
+        background: #ffffff;
+        box-shadow: 0 20px 50px rgb(15 23 42 / 8%);
+        text-align: center;
+      }
+
+      img {
+        display: block;
+        width: min(100%, 320px);
+        height: auto;
+        margin: 0 auto 32px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: 28px;
+        line-height: 1.3;
+      }
+
+      p {
+        margin: 0 0 28px;
+        color: #4b5563;
+        line-height: 1.65;
+      }
+
+      a {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+        border-radius: 999px;
+        background: #21c58b;
+        color: #ffffff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .actions {
+        display: grid;
+        gap: 12px;
+      }
+
+      .secondary-action {
+        border: 1px solid #21c58b;
+        background: #ffffff;
+        color: #087a59;
+      }
+
+      dialog {
+        width: min(calc(100% - 48px), 420px);
+        padding: 28px;
+        border: 0;
+        border-radius: 20px;
+        box-shadow: 0 24px 70px rgb(15 23 42 / 24%);
+        color: #111827;
+      }
+
+      dialog:not([open]) {
+        display: none;
+      }
+
+      dialog::backdrop {
+        background: rgb(15 23 42 / 48%);
+      }
+
+      dialog h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+
+      dialog p {
+        margin-bottom: 22px;
+      }
+
+      dialog form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      button {
+        min-height: 48px;
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #374151;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      a:focus-visible {
+        outline: 3px solid #99f6d5;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img
+        src="https://portfolio.example.com/share/report-card.png"
+        alt="싸방팔방"
+        width="2172"
+        height="724"
+      />
+      <h1>임장 리포트가 도착했어요</h1>
+      <p>앱에서 리포트를 열거나, 아직 설치하지 않았다면 앱을 먼저 설치해 보세요.</p>
+      <p id="installation-note" class="sr-only" role="status" aria-live="polite"></p>
+      <div class="actions">
+        <a id="install-app" href="https://example.com/apps/ssabangpalbang" rel="noopener noreferrer"
+        >앱 설치하기</a>
+        <a id="open-app" class="secondary-action" href="__REPORT_OPEN_URL__"
+        >싸방팔방 앱에서 열기</a>
+      </div>
+    </main>
+
+    <dialog id="installed-app-dialog" aria-labelledby="installed-app-title">
+      <h2 id="installed-app-title">싸방팔방 앱으로 이동할까요?</h2>
+      <p>앱이 설치된 것으로 확인됐어요. 확인을 누르면 리포트를 앱에서 엽니다.</p>
+      <form method="dialog">
+        <button value="cancel">취소</button>
+        <a href="__REPORT_OPEN_URL__">확인</a>
+      </form>
+    </dialog>
+
+    <script src="/share/report-open.js" defer></script>
+  </body>
+</html>

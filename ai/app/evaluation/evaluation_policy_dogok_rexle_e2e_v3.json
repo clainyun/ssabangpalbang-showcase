@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 3,
+  "policyId": "chatbot-dogok-rexle-e2e-v3",
+  "profile": "deployment-db-real-rag-live-web-scripted-llm",
+  "datasetFile": "datasets/chatbot_grounding_dogok_rexle_e2e_v3.json",
+  "datasetSha256": "515ed2d2f5e0320792fe21dbd0d561bc2d0256c0e3b50abce18b3221f60fa7e6",
+  "apartment": {
+    "complexCode": "A13527203",
+    "name": "도곡 렉슬"
+  },
+  "requiredReportStudyTitles": [
+    "도곡렉슬 임장 기록 #1",
+    "도곡렉슬 임장 기록 #2",
+    "도곡렉슬 임장 기록 #3"
+  ],
+  "caseCount": 20,
+  "categoryCounts": {
+    "rag": 8,
+    "profile": 3,
+    "web": 3,
+    "insufficient": 3,
+    "priority": 3
+  },
+  "executionLock": {
+    "llmMode": "scripted",
+    "requireDeploymentDbReadConfirmation": true,
+    "requireLiveWebConfirmation": true,
+    "gmsClientCreation": "forbidden"
+  },
+  "dependencies": {
+    "databaseMode": "read-only",
+    "ragMode": "real-pgvector",
+    "embeddingMode": "real-shared-embedder",
+    "webMode": "live-configured-provider",
+    "llmMode": "scripted-only"
+  },
+  "retrieval": {
+    "topK": 60,
+    "hitK": 60,
+    "maxContextChars": 30000
+  },
+  "run": {
+    "repetitions": 1,
+    "seed": 701
+  },
+  "artifacts": {
+    "persistRawAnswer": false,
+    "persistPrompt": false,
+    "persistWebContent": false,
+    "persistConnectionData": false
+  },
+  "metrics": [
+    "retrieval_hit_at_k",
+    "retrieval_mrr",
+    "answer_fact_pass_rate",
+    "raw_exact_source_pass_rate",
+    "final_citation_mapping_pass_rate",
+    "stage_failure_counts",
+    "stage_and_e2e_latency_p50_p95"
+  ]
+}

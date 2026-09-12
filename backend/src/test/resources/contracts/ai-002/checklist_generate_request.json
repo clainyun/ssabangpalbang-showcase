@@ -1,0 +1,27 @@
+{
+  "personalization": {
+    "member": {
+      "memberPurpose": "RESIDENCE",
+      "maritalStatus": "SINGLE",
+      "hasVehicle": true,
+      "hasChildren": false,
+      "priorities": ["TRANSPORT", "SAFETY", "NOISE"],
+      "ageGroup": "THIRTIES"
+    },
+    "apartment": {
+      "apartmentId": 15,
+      "name": "래미안 테스트",
+      "address": "서울특별시 강남구 테헤란로 1",
+      "districtName": "강남구",
+      "dongName": "역삼동",
+      "householdCount": 1200,
+      "completionYearMonth": "201503",
+      "parkingSpaceCount": 1500
+    },
+    "study": {
+      "studyId": 7,
+      "studyPurpose": "RESIDENCE",
+      "goal": "실거주 적합성을 함께 확인"
+    }
+  }
+}

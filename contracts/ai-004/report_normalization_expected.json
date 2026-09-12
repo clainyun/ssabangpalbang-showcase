@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "reportId": 48,
+  "studyId": 7,
+  "apartmentId": 15,
+  "fieldSessionId": 900,
+  "sessionEndedAt": "2026-07-20T16:00:00+09:00",
+  "snapshotAt": "2026-07-20T16:05:00+09:00",
+  "participants": [
+    {
+      "participantRef": "P1",
+      "startedAt": "2026-07-20T14:00:00+09:00",
+      "endedAt": "2026-07-20T16:00:00+09:00"
+    },
+    {
+      "participantRef": "P2",
+      "startedAt": "2026-07-20T14:02:00+09:00",
+      "endedAt": "2026-07-20T15:58:00+09:00"
+    }
+  ],
+  "checklistItems": [
+    {
+      "checklistItemId": 501,
+      "participantRef": "P1",
+      "category": "교통",
+      "title": "지하철역 접근성",
+      "subtitle": "단지 출입구에서 승강장까지 실제 소요 시간을 확인해 주세요.",
+      "displayOrder": 1,
+      "fallback": false,
+      "completed": true,
+      "completedAt": "2026-07-20T14:35:00+09:00"
+    },
+    {
+      "checklistItemId": 503,
+      "participantRef": "P1",
+      "category": "단지환경",
+      "title": "단지 진입 동선",
+      "subtitle": "보행 동선을 사진으로 기록해 주세요.",
+      "displayOrder": 2,
+      "fallback": false,
+      "completed": false,
+      "completedAt": null
+    },
+    {
+      "checklistItemId": 509,
+      "participantRef": "P2",
+      "category": "소음",
+      "title": "시간대별 소음",
+      "subtitle": null,
+      "displayOrder": 2,
+      "fallback": false,
+      "completed": true,
+      "completedAt": null
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": 201,
+      "participantRef": "P1",
+      "checklistItemId": 501,
+      "recordedAt": "2026-07-20T14:30:00+09:00",
+      "sourceType": "TEXT",
+      "semanticText": "현관에서 지하철역 입구까지 걸어서 약 8분이 걸립니다."
+    },
+    {
+      "sourceId": 214,
+      "participantRef": "P1",
+      "checklistItemId": 503,
+      "recordedAt": "2026-07-20T14:45:00+09:00",
+      "sourceType": "PHOTO",
+      "photoMetadata": {
+        "fileId": 301,
+        "contentType": "image/jpeg",
+        "sizeBytes": 1852034
+      }
+    },
+    {
+      "sourceId": 228,
+      "participantRef": "P2",
+      "checklistItemId": 509,
+      "recordedAt": "2026-07-20T15:05:00+09:00",
+      "sourceType": "STT",
+      "semanticText": "차량 소음은 크지 않지만 출퇴근 시간에는 다시 확인할 필요가 있습니다."
+    }
+  ],
+  "excludedSources": [
+    {
+      "sourceId": 201,
+      "referenceId": null,
+      "sourceType": "TEXT",
+      "participantRef": "P1",
+      "checklistItemId": 501,
+      "recordedAt": "2026-07-20T14:30:00+09:00",
+      "reason": "DUPLICATED",
+      "detail": null
+    },
+    {
+      "sourceId": 240,
+      "referenceId": null,
+      "sourceType": "TEXT",
+      "participantRef": "P1",
+      "checklistItemId": 501,
+      "recordedAt": "2026-07-20T15:10:00+09:00",
+      "reason": "EMPTY_TEXT",
+      "detail": null
+    },
+    {
+      "sourceId": 242,
+      "referenceId": null,
+      "sourceType": "STT",
+      "participantRef": "P2",
+      "checklistItemId": 509,
+      "recordedAt": "2026-07-20T15:12:00+09:00",
+      "reason": "STT_NOT_DONE",
+      "detail": "status=PROCESSING"
+    },
+    {
+      "sourceId": 243,
+      "referenceId": null,
+      "sourceType": "PHOTO",
+      "participantRef": "P1",
+      "checklistItemId": 503,
+      "recordedAt": "2026-07-20T15:15:00+09:00",
+      "reason": "PHOTO_METADATA_MISSING",
+      "detail": null
+    }
+  ],
+  "qualityIssues": [
+    {
+      "code": "COMPLETION_TIMESTAMP_MISSING",
+      "participantRef": "P2",
+      "referenceId": "509",
+      "detail": null
+    },
+    {
+      "code": "STT_RESULT_MISSING",
+      "participantRef": "P1",
+      "referenceId": "stt-done-missing-1",
+      "observedAt": "2026-07-20T15:18:00+09:00",
+      "detail": "status=DONE"
+    },
+    {
+      "code": "STT_NOT_DONE",
+      "participantRef": "P2",
+      "referenceId": "stt-pending-1",
+      "observedAt": "2026-07-20T15:20:00+09:00",
+      "detail": "status=PENDING"
+    }
+  ],
+  "normalizationSummary": {
+    "participantCount": 2,
+    "checklistItemCount": 3,
+    "completedChecklistItemCount": 2,
+    "inputRecordCount": 7,
+    "includedSourceCount": 3,
+    "excludedRecordCount": 4,
+    "duplicateRecordCount": 1,
+    "incompleteSttJobCount": 2
+  }
+}

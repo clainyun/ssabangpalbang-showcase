@@ -1,0 +1,89 @@
+{
+  "datasetId": "checklist-selection-v1",
+  "cases": [
+    {
+      "id": "live-transit-safety",
+      "mappedPurpose": "LIVE",
+      "selectedPriorities": ["TRANSPORTATION", "SAFETY"],
+      "hasVehicle": false,
+      "hasChildren": false
+    },
+    {
+      "id": "live-family-walk-safety",
+      "mappedPurpose": "LIVE",
+      "selectedPriorities": ["WALKABILITY", "SAFETY", "EDUCATION"],
+      "hasVehicle": false,
+      "hasChildren": true
+    },
+    {
+      "id": "live-car-parking-convenience",
+      "mappedPurpose": "LIVE",
+      "selectedPriorities": ["PARKING", "CONVENIENCE"],
+      "hasVehicle": true,
+      "hasChildren": false
+    },
+    {
+      "id": "live-quiet-green",
+      "mappedPurpose": "LIVE",
+      "selectedPriorities": ["NOISE", "GREEN_SPACE"],
+      "hasVehicle": false,
+      "hasChildren": false
+    },
+    {
+      "id": "invest-transit-convenience",
+      "mappedPurpose": "INVEST",
+      "selectedPriorities": ["TRANSPORTATION", "CONVENIENCE"],
+      "hasVehicle": false,
+      "hasChildren": false
+    },
+    {
+      "id": "invest-car-parking-safety",
+      "mappedPurpose": "INVEST",
+      "selectedPriorities": ["PARKING", "SAFETY"],
+      "hasVehicle": true,
+      "hasChildren": false
+    },
+    {
+      "id": "invest-walk-green",
+      "mappedPurpose": "INVEST",
+      "selectedPriorities": ["WALKABILITY", "GREEN_SPACE"],
+      "hasVehicle": false,
+      "hasChildren": false
+    },
+    {
+      "id": "learn-education-safety",
+      "mappedPurpose": "LEARN",
+      "selectedPriorities": ["EDUCATION", "SAFETY"],
+      "hasVehicle": false,
+      "hasChildren": true
+    },
+    {
+      "id": "learn-transit-walk",
+      "mappedPurpose": "LEARN",
+      "selectedPriorities": ["TRANSPORTATION", "WALKABILITY"],
+      "hasVehicle": false,
+      "hasChildren": true
+    },
+    {
+      "id": "learn-convenience-green",
+      "mappedPurpose": "LEARN",
+      "selectedPriorities": ["CONVENIENCE", "GREEN_SPACE"],
+      "hasVehicle": false,
+      "hasChildren": true
+    },
+    {
+      "id": "live-four-priorities",
+      "mappedPurpose": "LIVE",
+      "selectedPriorities": ["TRANSPORTATION", "SAFETY", "CONVENIENCE", "NOISE"],
+      "hasVehicle": true,
+      "hasChildren": true
+    },
+    {
+      "id": "invest-four-priorities",
+      "mappedPurpose": "INVEST",
+      "selectedPriorities": ["WALKABILITY", "GREEN_SPACE", "PARKING", "EDUCATION"],
+      "hasVehicle": true,
+      "hasChildren": true
+    }
+  ]
+}

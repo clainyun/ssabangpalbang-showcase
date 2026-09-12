@@ -1,0 +1,13 @@
+{
+  "name": "싸방팔방 임장 리포트",
+  "short_name": "싸방팔방",
+  "start_url": "/report/1",
+  "scope": "/report/",
+  "display": "browser",
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.ssafy.ssabangpalbang"
+    }
+  ]
+}
